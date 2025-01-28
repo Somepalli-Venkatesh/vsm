@@ -16,7 +16,7 @@ router.get('/notifications', protect, getNotifications);
 
 
 // Register user (no authentication required)
-router.post("/register", upload.single("image"), register);
+router.post("/register", upload, register);
 
 // Login user (no authentication required)
 router.post('/login', login);
