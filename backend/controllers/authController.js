@@ -110,7 +110,7 @@ exports.login = async (req, res) => {
     const token = jwt.sign(
       {_id: user._id, email: user.email, role: user.role }, // Add the role to the token payload
       process.env.JWT_SECRET,
-      { expiresIn: "1h" } // Optional: Set token expiration
+      { expiresIn: "6h" } // Optional: Set token expiration
     );
     return res.json({ token, role: user.role }); // Send role along with token
   } else {

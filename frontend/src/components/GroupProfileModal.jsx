@@ -47,17 +47,30 @@ const GroupProfileModal = ({ selectedGroup, onClose }) => {
             <FiUsers className="mr-2 text-blue-400" /> Members
           </h3>
           {selectedGroup?.members?.length > 0 ? (
-            <ul className="max-h-40 overflow-y-auto space-y-2">
+            <ul className="max-h-40 overflow-y-auto space-y-2 scrollbar-hide">
               {selectedGroup.members.map((member, index) => (
                 <li
                   key={index}
                   className="flex items-center bg-gray-700 p-2 rounded-lg hover:bg-gray-600 transition-all"
                 >
-                  <img
-                    src={`data:image/jpeg;base64,${member.image}`}
-                    alt={member.name}
-                    className="w-8 h-8 rounded-full border-2 border-blue-500 mr-3"
-                  />
+                  {member.image ? (
+                    <img
+                      src={
+                        member.image.startsWith("data:image") ||
+                        member.image.startsWith("https://")
+                          ? member.image
+                          : `data:image/jpeg;base64,${member.image}`
+                      }
+                      alt={member.name}
+                      className="w-8 h-8 rounded-full border-2 border-blue-500 mr-3 object-cover"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full border-2 border-blue-500 mr-3 flex items-center justify-center bg-gray-700">
+                      <span className="text-sm text-gray-300">
+                        {member.name?.charAt(0) || "?"}
+                      </span>
+                    </div>
+                  )}
                   <span className="text-gray-300">{member.name}</span>
                 </li>
               ))}

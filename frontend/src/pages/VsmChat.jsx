@@ -10,13 +10,19 @@ import {
   Trash2,
   Loader2,
   Check,
+  ArrowLeft, // Added back arrow from lucide-react
 } from "lucide-react";
 import { io } from "socket.io-client";
 import { useToast } from "../hooks/use-toast";
 import katex from "katex";
 import openAiGif from "../assets/hina.gif";
 
-const VsmChat = () => {
+const socket = io("http://localhost:5000", {
+  transports: ["websocket"],
+  upgrade: false,
+});
+
+const VsmChat = ({ onBack }) => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

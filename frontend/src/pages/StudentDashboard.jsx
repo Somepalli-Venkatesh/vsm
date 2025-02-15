@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
 import ChatArea from "./ChatArea";
 import Modal from "./Modal";
-import {FaComments } from "react-icons/fa"
+import { FaComments } from "react-icons/fa";
 import InviteGroupModal from "./InviteGroupModal";
 import GroupDetailsPanel from "../components/GroupDetailsPanel";
 import VsmChat from "./VsmChat";
@@ -21,6 +21,7 @@ const OpenAI = () => (
 );
 
 const StudentDashboard = () => {
+  // ---------------- STATE DECLARATIONS ----------------
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [selectedChat, setSelectedChat] = useState(null);
   const [chats, setChats] = useState([]);
@@ -44,7 +45,7 @@ const StudentDashboard = () => {
   const [userId, setUserId] = useState("");
   const [newGroupImage, setNewGroupImage] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  // This state controls whether the OpenAI (VsmChat) middle panel is visible.
+  // Controls whether the OpenAI (VsmChat) middle panel is visible.
   const [showOpenAI, setShowOpenAI] = useState(false);
 
   // ---------------- FETCH USER PROFILE ----------------
@@ -108,7 +109,7 @@ const StudentDashboard = () => {
     }
   }, [userId]);
 
-  // ---------------- REFRESH GROUPS (on invite acceptance) ----------------
+  // ---------------- REFRESH GROUPS ----------------
   const refreshGroups = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -143,7 +144,7 @@ const StudentDashboard = () => {
     }
   };
 
-  // ---------------- FETCH CREATOR & MEMBER DETAILS ----------------
+  // ---------------- FETCH MEMBER DETAILS ----------------
   const fetchMemberDetails = useCallback(async () => {
     if (!selectedChat?.members) return;
     try {
@@ -333,15 +334,13 @@ const StudentDashboard = () => {
     }
   };
 
-  // Prepare currentUser for GroupDetailsPanel
+  // ---------------- PREPARE CURRENT USER ----------------
   const currentUser = useMemo(
     () => ({ _id: userId, name: userName }),
     [userId, userName]
   );
 
-  // Helper function to render placeholder for ChatArea when no chat is selected.
-  // If no chats are loaded, show a background image.
-  // Otherwise, show a default chat logo.
+  // ---------------- CHAT PLACEHOLDER ----------------
   const renderChatPlaceholder = () => {
     if (chats.length === 0) {
       return (
@@ -353,134 +352,184 @@ const StudentDashboard = () => {
     }
     return (
       <div className="flex flex-col items-center justify-center h-full bg-black">
-       <span className="text-purple-500 text-8xl">
-      <FaComments />
-    </span>
+        <span className="text-purple-500 text-8xl">
+          <FaComments />
+        </span>
       </div>
     );
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-blue-700">
-      {/* Sidebar */}
-      <div
-        className={
-          isSidebarOpen
-            ? "w-[30%] bg-gradient-to-b from-amber-200 to-purple-300 text-black border-r flex-shrink-0 overflow-hidden transition-all duration-300"
-            : showOpenAI
-            ? "w-[5%] bg-gradient-to-b from-amber-200 to-purple-300 text-black border-r flex-shrink-0 overflow-hidden transition-all duration-300"
-            : "w-20 bg-gradient-to-b from-amber-200 to-purple-300 text-black border-r flex-shrink-0 overflow-hidden transition-all duration-300"
-        }
-      >
-        <Sidebar
-          isOpen={isSidebarOpen}
-          onToggle={toggleSidebar}
-          onSelectChat={setSelectedChat}
-          chats={filteredChats}
-          setModalOpen={setModalOpen}
-          userId={userId}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          notifications={notifications}
-          showNotifications={showNotifications}
-          onToggleNotifications={toggleNotifications}
-          onStatusUpdate={handleNotificationUpdate}
-          onGroupUpdate={setChats}
-          showOpenAI={showOpenAI}
-          onToggleOpenAI={() => setShowOpenAI((prev) => !prev)}
-        />
+    <>
+      {/* MOBILE LAYOUT */}
+      <div className="md:hidden h-screen bg-blue-700 overflow-hidden min-h-screen">
+        {selectedChat || showOpenAI ? (
+          // Render ChatArea or VsmChat without an extra header here.
+          <div className="flex flex-col h-full min-h-0">
+            {selectedChat ? (
+              <ChatArea
+                selectedChat={selectedChat}
+                currentMessage={currentMessage}
+                setCurrentMessage={setCurrentMessage}
+                handleSendMessage={handleSendMessage}
+                userId={userId}
+                isTyping={isTyping}
+                messages={messages}
+                onlineUsers={onlineUsers}
+                showGroupDetails={showGroupDetails}
+                onToggleDetails={toggleGroupDetails}
+                onBack={() => setSelectedChat(null)}
+              />
+            ) : (
+              <VsmChat onBack={() => setShowOpenAI(false)} />
+            )}
+          </div>
+        ) : (
+          // Render the Sidebar (chat list)
+          <div className="h-full">
+            <Sidebar
+              isOpen={isSidebarOpen}
+              onToggle={toggleSidebar}
+              onSelectChat={setSelectedChat}
+              chats={filteredChats}
+              setModalOpen={setModalOpen}
+              userId={userId}
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              notifications={notifications}
+              showNotifications={showNotifications}
+              onToggleNotifications={toggleNotifications}
+              onStatusUpdate={handleNotificationUpdate}
+              onGroupUpdate={setChats}
+              showOpenAI={showOpenAI}
+              onToggleOpenAI={() => setShowOpenAI((prev) => !prev)}
+            />
+          </div>
+        )}
       </div>
 
-      {/* Main Content */}
-      {showOpenAI ? (
-        isSidebarOpen ? (
-          <>
-            <div className="w-[40%] border-r border-gray-200 flex-shrink-0 overflow-hidden transition-all duration-300">
-              <VsmChat />
-            </div>
-            <div className="w-[30%] transition-all duration-300">
-              {selectedChat ? (
-                <ChatArea
-                  selectedChat={selectedChat}
-                  currentMessage={currentMessage}
-                  setCurrentMessage={setCurrentMessage}
-                  handleSendMessage={handleSendMessage}
-                  userId={userId}
-                  isTyping={isTyping}
-                  messages={messages}
-                  onlineUsers={onlineUsers}
-                  showGroupDetails={showGroupDetails}
-                  onToggleDetails={toggleGroupDetails}
-                />
-              ) : (
-                renderChatPlaceholder()
-              )}
-            </div>
-          </>
+      {/* DESKTOP LAYOUT */}
+      <div className="hidden md:flex h-screen overflow-hidden bg-blue-700">
+        {/* Sidebar */}
+        <div
+          className={
+            isSidebarOpen
+              ? "w-[30%] bg-gradient-to-b from-amber-200 to-purple-300 text-black border-r flex-shrink-0 overflow-hidden transition-all duration-300"
+              : showOpenAI
+              ? "w-[5%] bg-gradient-to-b from-amber-200 to-purple-300 text-black border-r flex-shrink-0 overflow-hidden transition-all duration-300"
+              : "w-20 bg-gradient-to-b from-amber-200 to-purple-300 text-black border-r flex-shrink-0 overflow-hidden transition-all duration-300"
+          }
+        >
+          <Sidebar
+            isOpen={isSidebarOpen}
+            onToggle={toggleSidebar}
+            onSelectChat={setSelectedChat}
+            chats={filteredChats}
+            setModalOpen={setModalOpen}
+            userId={userId}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            notifications={notifications}
+            showNotifications={showNotifications}
+            onToggleNotifications={toggleNotifications}
+            onStatusUpdate={handleNotificationUpdate}
+            onGroupUpdate={setChats}
+            showOpenAI={showOpenAI}
+            onToggleOpenAI={() => setShowOpenAI((prev) => !prev)}
+          />
+        </div>
+
+        {/* Main Content */}
+        {showOpenAI ? (
+          isSidebarOpen ? (
+            <>
+              <div className="w-[40%] border-r border-gray-200 flex-shrink-0 overflow-hidden transition-all duration-300">
+                <VsmChat />
+              </div>
+              <div className="w-[30%] transition-all duration-300">
+                {selectedChat ? (
+                  <ChatArea
+                    selectedChat={selectedChat}
+                    currentMessage={currentMessage}
+                    setCurrentMessage={setCurrentMessage}
+                    handleSendMessage={handleSendMessage}
+                    userId={userId}
+                    isTyping={isTyping}
+                    messages={messages}
+                    onlineUsers={onlineUsers}
+                    showGroupDetails={showGroupDetails}
+                    onToggleDetails={toggleGroupDetails}
+                  />
+                ) : (
+                  renderChatPlaceholder()
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="w-[60%] border-r border-gray-200 flex-shrink-0 overflow-hidden transition-all duration-300">
+                <VsmChat />
+              </div>
+              <div className="w-[35%] transition-all duration-300">
+                {selectedChat ? (
+                  <ChatArea
+                    selectedChat={selectedChat}
+                    currentMessage={currentMessage}
+                    setCurrentMessage={setCurrentMessage}
+                    handleSendMessage={handleSendMessage}
+                    userId={userId}
+                    isTyping={isTyping}
+                    messages={messages}
+                    onlineUsers={onlineUsers}
+                    showGroupDetails={showGroupDetails}
+                    onToggleDetails={toggleGroupDetails}
+                  />
+                ) : (
+                  renderChatPlaceholder()
+                )}
+              </div>
+            </>
+          )
+        ) : isSidebarOpen ? (
+          <div className="w-[70%] transition-all duration-300">
+            {selectedChat ? (
+              <ChatArea
+                selectedChat={selectedChat}
+                currentMessage={currentMessage}
+                setCurrentMessage={setCurrentMessage}
+                handleSendMessage={handleSendMessage}
+                userId={userId}
+                isTyping={isTyping}
+                messages={messages}
+                onlineUsers={onlineUsers}
+                showGroupDetails={showGroupDetails}
+                onToggleDetails={toggleGroupDetails}
+              />
+            ) : (
+              renderChatPlaceholder()
+            )}
+          </div>
         ) : (
-          <>
-            <div className="w-[60%] border-r border-gray-200 flex-shrink-0 overflow-hidden transition-all duration-300">
-              <VsmChat />
-            </div>
-            <div className="w-[35%] transition-all duration-300">
-              {selectedChat ? (
-                <ChatArea
-                  selectedChat={selectedChat}
-                  currentMessage={currentMessage}
-                  setCurrentMessage={setCurrentMessage}
-                  handleSendMessage={handleSendMessage}
-                  userId={userId}
-                  isTyping={isTyping}
-                  messages={messages}
-                  onlineUsers={onlineUsers}
-                  showGroupDetails={showGroupDetails}
-                  onToggleDetails={toggleGroupDetails}
-                />
-              ) : (
-                renderChatPlaceholder()
-              )}
-            </div>
-          </>
-        )
-      ) : isSidebarOpen ? (
-        <div className="w-[70%] transition-all duration-300">
-          {selectedChat ? (
-            <ChatArea
-              selectedChat={selectedChat}
-              currentMessage={currentMessage}
-              setCurrentMessage={setCurrentMessage}
-              handleSendMessage={handleSendMessage}
-              userId={userId}
-              isTyping={isTyping}
-              messages={messages}
-              onlineUsers={onlineUsers}
-              showGroupDetails={showGroupDetails}
-              onToggleDetails={toggleGroupDetails}
-            />
-          ) : (
-            renderChatPlaceholder()
-          )}
-        </div>
-      ) : (
-        <div className="flex-1 transition-all duration-300">
-          {selectedChat ? (
-            <ChatArea
-              selectedChat={selectedChat}
-              currentMessage={setCurrentMessage}
-              setCurrentMessage={setCurrentMessage}
-              handleSendMessage={handleSendMessage}
-              userId={userId}
-              isTyping={isTyping}
-              messages={messages}
-              onlineUsers={onlineUsers}
-              showGroupDetails={showGroupDetails}
-              onToggleDetails={toggleGroupDetails}
-            />
-          ) : (
-            renderChatPlaceholder()
-          )}
-        </div>
-      )}
+          <div className="flex-1 transition-all duration-300">
+            {selectedChat ? (
+              <ChatArea
+                selectedChat={selectedChat}
+                currentMessage={currentMessage}
+                setCurrentMessage={setCurrentMessage}
+                handleSendMessage={handleSendMessage}
+                userId={userId}
+                isTyping={isTyping}
+                messages={messages}
+                onlineUsers={onlineUsers}
+                showGroupDetails={showGroupDetails}
+                onToggleDetails={toggleGroupDetails}
+              />
+            ) : (
+              renderChatPlaceholder()
+            )}
+          </div>
+        )}
+      </div>
 
       {/* Group Details Panel */}
       <GroupDetailsPanel
@@ -531,7 +580,7 @@ const StudentDashboard = () => {
         draggable
         pauseOnFocusLoss
       />
-    </div>
+    </>
   );
 };
 
