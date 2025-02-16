@@ -9,6 +9,7 @@ import { FaComments } from "react-icons/fa";
 import InviteGroupModal from "./InviteGroupModal";
 import GroupDetailsPanel from "../components/GroupDetailsPanel";
 import VsmChat from "./VsmChat";
+import { ArrowLeft } from "lucide-react";
 
 // Import a background image for the chat placeholder
 import chatBg from "../assets/vsm3.jpg";
@@ -364,8 +365,24 @@ const StudentDashboard = () => {
       {/* MOBILE LAYOUT */}
       <div className="md:hidden h-screen bg-blue-700 overflow-hidden min-h-screen">
         {selectedChat || showOpenAI ? (
-          // Render ChatArea or VsmChat without an extra header here.
+          // Render ChatArea or VsmChat with a header including a back arrow.
           <div className="flex flex-col h-full min-h-0">
+            <div className="p-4 border-b border-gray-700/50 bg-gray-800/90 backdrop-blur-sm flex items-center">
+              <button
+                onClick={() => {
+                  if (selectedChat) {
+                    setSelectedChat(null);
+                  } else {
+                    setShowOpenAI(false);
+                  }
+                }}
+                className="text-white mr-4"
+                title="Go back"
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </button>
+              <h1 className="text-xl font-bold text-white">Back to Chats</h1>
+            </div>
             {selectedChat ? (
               <ChatArea
                 selectedChat={selectedChat}
