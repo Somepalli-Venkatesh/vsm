@@ -48,16 +48,21 @@ const Login = () => {
         }
       );
 
-      const token = response.data.token;
-      localStorage.setItem("token", token);
-      const userRole = response.data.role;
+      const { token, role: serverRole } = response.data;
 
-      if (userRole === "admin") {
+      // Validate that the returned role matches the selected role
+      if (serverRole !== role) {
+        setMessage("Invalid credentials for the selected role.");
+        setLoading(false);
+        return;
+      }
+
+      localStorage.setItem("token", token);
+
+      if (serverRole === "admin") {
         navigate("/admin-dashboard");
-      } else if (userRole === "student") {
+      } else if (serverRole === "student") {
         navigate("/dashboard");
-      } else {
-        setMessage("Invalid role.");
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Login failed");

@@ -326,8 +326,8 @@ const VsmChat = ({ onBack }) => {
         <div
           className={`relative rounded-2xl backdrop-blur-sm transition-all duration-300 ${
             message.type === "user"
-              ? "bg-purple-600/90 text-white ml-auto w-fit max-w-[60%] p-2.5 text-sm hover:shadow-[0_0_25px_rgba(147,51,234,0.9)] shadow-[0_0_15px_rgba(147,51,234,0.7)]"
-              : "bg-gradient-to-r from-cyan-500/90 to-blue-500/90 text-white w-fit max-w-[80%] p-4 hover:shadow-[0_0_25px_rgba(59,130,246,0.9)] shadow-[0_0_15px_rgba(59,130,246,0.7)]"
+              ? "bg-purple-600/90 text-white ml-1 w-auto h-auto p-1.5 text-sm hover:shadow-[0_0_25px_rgba(147,51,234,0.9)] shadow-[0_0_15px_rgba(147,51,234,0.7)]"
+              : "bg-gradient-to-r from-cyan-500/90 to-blue-500/90 text-white w-fit max-w-[80%] p-1.5 hover:shadow-[0_0_25px_rgba(59,130,246,0.9)] shadow-[0_0_15px_rgba(59,130,246,0.7)]"
           }`}
         >
           <div
@@ -431,12 +431,12 @@ const VsmChat = ({ onBack }) => {
   };
 
   return (
-    <div className="h-screen w-full flex bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+    <div className="h-screen w-full flex bg-black overflow-hidden">
       {/* Sidebar */}
       <div
         className={`${
           isSidebarOpen ? "w-64" : "w-0"
-        } transition-all duration-300 bg-gray-800/90 backdrop-blur-sm border-r border-gray-700/50 flex flex-col overflow-hidden shadow-[5px_0_15px_rgba(0,0,0,0.3)]`}
+        } transition-all duration-300 bg-black backdrop-blur-sm border-r border-gray-700/50 flex flex-col overflow-hidden shadow-[5px_0_15px_rgba(0,0,0,0.3)]`}
       >
         <div className="p-4 border-b border-gray-700/50 flex items-center justify-between">
           <h2 className="text-xl font-semibold text-white">Chat History</h2>
@@ -456,7 +456,7 @@ const VsmChat = ({ onBack }) => {
           New Chat
         </button>
 
-        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
+        <div className="flex-1 overflow-y-auto  scrollbar-hidden">
           {chatHistory.map((chat) => (
             <div
               key={chat.id}
@@ -488,7 +488,7 @@ const VsmChat = ({ onBack }) => {
 
       <div className="flex-1 flex flex-col h-full">
         {/* Header */}
-        <div className="p-4 flex items-center justify-between border-b border-gray-700/50 bg-gray-800/90 backdrop-blur-sm">
+        <div className="p-4 flex items-center justify-between border-b border-gray-700/50 bg-black backdrop-blur-sm">
           <button
             onClick={() => setSidebarOpen(true)}
             className={`text-gray-400 hover:text-white transition-colors ${
@@ -499,7 +499,7 @@ const VsmChat = ({ onBack }) => {
           </button>
           <div className="flex items-center justify-center flex-1">
             <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-              AI Text Generator
+              I'm Hina
             </h1>
             <Sparkles className="ml-2 w-6 h-6 text-purple-400 animate-pulse" />
           </div>
@@ -522,17 +522,13 @@ const VsmChat = ({ onBack }) => {
                 >
                   {message.type === "ai" && (
                     <div className="flex-shrink-0">
-                      <img
-                        src={openAiGif}
-                        alt="AI"
-                        className="w-8 h-8 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"
-                      />
+                      <img src={openAiGif} alt="AI" className="w-12 h-12  " />
                     </div>
                   )}
                   <MessageContent message={message} index={index} />
                   {message.type === "user" && (
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-purple-600/90 flex items-center justify-center shadow-[0_0_10px_rgba(147,51,234,0.5)]">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-80 transition duration-200 flex items-center justify-center shadow-[0_0_10px_rgba(147,51,234,0.5)]">
                         <User className="w-5 h-5 text-white" />
                       </div>
                     </div>
@@ -559,7 +555,7 @@ const VsmChat = ({ onBack }) => {
         </div>
 
         {/* Input Section */}
-        <div className="p-4 border-t border-gray-700/50 bg-gray-800/90 backdrop-blur-sm">
+        <div className="p-4 border-t border-purple-900 bg-black backdrop-blur-sm">
           <div className="relative">
             <input
               type="text"
