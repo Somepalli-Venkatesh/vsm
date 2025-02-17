@@ -17,6 +17,8 @@ const Login = () => {
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotMessage, setForgotMessage] = useState("");
+  // New state to track success (true) or error (false)
+  const [forgotSuccess, setForgotSuccess] = useState(null);
   const [forgotLoading, setForgotLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -61,6 +63,7 @@ const Login = () => {
     e.preventDefault();
     if (!forgotEmail) {
       setForgotMessage("Please enter your email.");
+      setForgotSuccess(false);
       return;
     }
     setForgotLoading(true);
@@ -70,10 +73,12 @@ const Login = () => {
         email: forgotEmail,
       });
       setForgotMessage(response.data.message);
+      setForgotSuccess(true);
     } catch (error) {
       setForgotMessage(
         error.response?.data?.message || "Failed to send reset link."
       );
+      setForgotSuccess(false);
     } finally {
       setForgotLoading(false);
     }
@@ -200,9 +205,13 @@ const Login = () => {
       {/* Forgot Password Modal */}
       {showForgotModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="bg-gray-800 rounded-lg shadow-xl p-6 z-10 w-80">
-            <h3 className="text-xl font-bold text-white mb-4">
+          <div className="absolute inset-0 bg-black opacity-70"></div>
+          <div
+            className="bg-black rounded-lg p-6 z-10 w-80 border border-purple-700 
+                       shadow-2xl shadow-[0_0_20px_2px_rgba(128,0,128,0.7)] 
+                       transition-shadow duration-300"
+          >
+            <h3 className="text-xl font-bold text-purple-400 mb-4">
               Forgot Password
             </h3>
             <p className="text-gray-300 text-sm mb-4">
@@ -213,10 +222,17 @@ const Login = () => {
               placeholder="Your email"
               value={forgotEmail}
               onChange={(e) => setForgotEmail(e.target.value)}
-              className="w-full p-2 rounded mb-2 text-gray-900"
+              className="w-full p-2 rounded mb-2 bg-gray-700 text-white border border-purple-700
+                         focus:ring-2 focus:ring-purple-500 focus:outline-none"
             />
             {forgotMessage && (
-              <p className="text-xs text-red-400 mb-2">{forgotMessage}</p>
+              <p
+                className={`text-xs mb-2 ${
+                  forgotSuccess ? "text-green-400" : "text-red-400"
+                }`}
+              >
+                {forgotMessage}
+              </p>
             )}
             <div className="flex justify-end gap-3">
               <button
@@ -224,15 +240,16 @@ const Login = () => {
                   setShowForgotModal(false);
                   setForgotEmail("");
                   setForgotMessage("");
+                  setForgotSuccess(null);
                 }}
-                className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-500 transition-colors"
+                className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-500 transition-colors shadow-md hover:shadow-lg"
               >
                 Cancel
               </button>
               <button
                 onClick={handleForgotSubmit}
                 disabled={forgotLoading}
-                className="px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition-colors"
+                className="px-4 py-2 bg-purple-600 rounded hover:bg-purple-500 transition-colors shadow-md hover:shadow-lg"
               >
                 {forgotLoading ? "Sending..." : "Send Reset Link"}
               </button>

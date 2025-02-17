@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import axios from "../api/axios";
 import { FaTimes, FaUserPlus } from "react-icons/fa";
 
-/**
- * GroupDetailsPanel Component
- * Displays group info, creator details, members,
- * and allows the group creator to delete the group.
- */
 const GroupDetailsPanel = ({
   show,
   onClose,
@@ -21,44 +16,27 @@ const GroupDetailsPanel = ({
   const [confirmGroupName, setConfirmGroupName] = useState("");
   const [deleteError, setDeleteError] = useState("");
   const [loading, setLoading] = useState(false);
+  // State to show error popup when unauthorized
+  const [errorPopup, setErrorPopup] = useState("");
 
   if (!show || !selectedChat) return null;
 
-  // Updated utility function to get image source
+  // Utility function to get image source
   const getImageSrc = (img) => {
     if (!img) return "https://via.placeholder.com/150";
-
-    // If img is a string, check if it's a data URL or a regular URL.
-    if (typeof img === "string") {
-      return img.startsWith("data:image") ? img : img;
+    if (typeof img === "string" && img.startsWith("data:image")) return img;
+    if (typeof img === "object" && img.data) {
+      return `data:image/jpeg;base64,${btoa(
+        new Uint8Array(img.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ""
+        )
+      )}`;
     }
-
-    // If img is a File or Blob object, create a temporary URL.
-    if (img instanceof Blob) {
-      return URL.createObjectURL(img);
-    }
-
-    // If img is an object with a "data" property, convert to a base64 data URL.
-    if (img.data) {
-      try {
-        const base64String = btoa(
-          new Uint8Array(img.data).reduce(
-            (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
-        );
-        return `data:image/jpeg;base64,${base64String}`;
-      } catch (error) {
-        console.error("Error converting image data:", error);
-        return "https://via.placeholder.com/150";
-      }
-    }
-
-    // Fallback in case none of the conditions are met.
-    return "https://via.placeholder.com/150";
+    return img;
   };
 
-  // Handle delete button click with debug logs
+  // Handle delete button click with error popup instead of alert
   const handleDeleteGroupClick = () => {
     console.log("Current user ID:", currentUser?._id);
     console.log("Creator ID:", creatorDetails?._id);
@@ -67,13 +45,16 @@ const GroupDetailsPanel = ({
       !creatorDetails ||
       String(currentUser._id) !== String(creatorDetails._id)
     ) {
-      alert("You do not have authority to delete this group.");
+      setErrorPopup("You do not have authority to delete this group.");
+      setTimeout(() => {
+        setErrorPopup("");
+      }, 2000);
       return;
     }
     setShowDeletePopup(true);
   };
 
-  // Handle confirming deletion
+  // Handle confirming deletion using Axios
   const handleConfirmDelete = async () => {
     if (confirmGroupName !== selectedChat.name) {
       setDeleteError("Group name does not match.");
@@ -216,7 +197,7 @@ const GroupDetailsPanel = ({
                 setConfirmGroupName(e.target.value);
                 if (deleteError) setDeleteError("");
               }}
-              className="w-full p-2 rounded mb-2 text-gray-900"
+              className="w-full p-2 rounded mb-2"
               placeholder="Enter group name"
             />
             {deleteError && (
@@ -242,6 +223,13 @@ const GroupDetailsPanel = ({
               </button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Error Popup */}
+      {errorPopup && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">
+          {errorPopup}
         </div>
       )}
 

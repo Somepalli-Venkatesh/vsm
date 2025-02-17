@@ -1,4 +1,3 @@
-// InviteGroupModal.jsx
 import React, { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { toast } from "react-toastify";
@@ -12,6 +11,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
   const [requestSent, setRequestSent] = useState(false);
   const [isSendingInvite, setIsSendingInvite] = useState(false);
 
+  // Search users with debounce
   useEffect(() => {
     const searchUsers = async () => {
       if (searchQuery.length < 2) {
@@ -38,19 +38,27 @@ const InviteGroupModal = ({ groupId, onClose }) => {
     return () => clearTimeout(debounceTimeout);
   }, [searchQuery]);
 
+  // Send invite function with toast messages
   const handleSendInvite = async () => {
-    if (!selectedUser) return;
+    if (!selectedUser) {
+      toast.error("Please select a user to invite.");
+      return;
+    }
     setIsSendingInvite(true);
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
+      const response = await axios.post(
         "/auth/send-group-invite",
         { groupId, userId: selectedUser._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setRequestSent(true);
-      toast.success(`Invitation sent to ${selectedUser.name}`);
-      setTimeout(onClose, 2000);
+      // Assuming a successful response indicates the invite was sent
+      if (response.data) {
+        setRequestSent(true);
+        toast.success(`Invitation sent to ${selectedUser.name}`);
+        // Optionally, close the modal after 2 seconds
+        setTimeout(() => onClose(), 2000);
+      }
     } catch (error) {
       console.error("Error sending invite:", error);
       toast.error("Failed to send invitation");

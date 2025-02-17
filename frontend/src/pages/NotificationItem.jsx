@@ -1,4 +1,3 @@
-// NotificationItem.jsx
 import React from "react";
 import axios from "../api/axios";
 import { toast } from "react-toastify";
@@ -61,8 +60,10 @@ const NotificationItem = ({ notification, onStatusUpdate, onGroupUpdate }) => {
           : `Declined invitation to ${notification.groupName}`;
         toast.success(message);
 
+        // Call onStatusUpdate with this notification's ID.
+        // The parent can then mark this notification as read (or update its status)
         if (onStatusUpdate) {
-          onStatusUpdate();
+          onStatusUpdate(notification._id);
         }
 
         if (accept && onGroupUpdate) {

@@ -122,7 +122,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6 relative">
+    <div className="min-h-screen flex items-center justify-center bg-black p-6 relative">
       <button
         onClick={() => navigate("/")}
         type="button"
@@ -132,18 +132,18 @@ const Signup = () => {
         Back to Home
       </button>
 
-      <div className="flex flex-col md:flex-row items-center w-full max-w-5xl bg-gray-1000 rounded-xl overflow-hidden gap-8">
-        <div className="md:w-1/2 p-8 bg-gray-950 rounded-lg text-white space-y-6">
+      <div className="flex flex-col md:flex-row items-center w-full max-w-5xl bg-gray-900 rounded-xl overflow-hidden gap-8">
+        <div className="md:w-1/2 p-8">
           <form
             onSubmit={step === 1 ? handleSignupSubmit : handleOtpSubmit}
-            className="space-y-4 bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700 hover:shadow-blue-500/50 transition duration-500 ease-in-out"
+            className="space-y-4 bg-gray-800 p-6 rounded-lg border border-purple-700 shadow-[0_0_20px_rgba(128,0,128,0.7)] hover:shadow-[0_0_25px_rgba(128,0,128,0.9)] transition duration-500 ease-in-out"
           >
             <h2 className="text-3xl font-extrabold text-center bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
               Signup
             </h2>
 
             {message && (
-              <div className="text-center text-red-400 font-medium">
+              <div className="text-center text-red-500 font-medium">
                 {message}
               </div>
             )}
@@ -195,7 +195,7 @@ const Signup = () => {
                 </div>
 
                 {passwordError && (
-                  <p className="text-red-400 text-sm">{passwordError}</p>
+                  <p className="text-red-500 text-sm">{passwordError}</p>
                 )}
 
                 <div>
@@ -231,7 +231,7 @@ const Signup = () => {
                 {/* Dropzone for image upload */}
                 <div
                   {...getRootProps()}
-                  className="border-2 border-dashed p-6 text-center"
+                  className="border-2 border-dashed border-purple-700 p-6 text-center text-gray-300"
                 >
                   <input {...getInputProps()} />
                   {form.image ? (

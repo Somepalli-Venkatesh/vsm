@@ -1,3 +1,4 @@
+const path = require("path");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -6,7 +7,6 @@ const Group = require("../models/groupModel");
 const process = require("process");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
-
 
 // Update NotificationSchema to include timestamps
 const NotificationSchema = new mongoose.Schema(
@@ -41,11 +41,25 @@ const sendOTPEmail = async (email, otp) => {
     },
   });
 
+  // Mail options including HTML content and an inline image
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
     subject: "OTP for Your Registration",
-    text: `Your OTP is: ${otp}`,
+    html: `
+     <h1 style="font-family:Monotype Corsiva; color:#7600bc">Unlock Your Potential with VSM </h1>
+      <img src="cid:unique-logo-id" alt="Logo" style="width:1050px; height:600px;"/>
+      <p>Your OTP is: <b>${otp}</b></p>
+      <p>Please use this OTP to complete your registration.</p>
+      
+    `,
+    attachments: [
+      {
+        filename: "vsm1.jpg", // Name of the file as it will appear in the email
+        path: path.join(__dirname, "images", "vsm1.jpg"), // Ensure this path is correct based on your folder structure
+        cid: "unique-logo-id", // This CID must match the one used in the HTML img src
+      },
+    ],
   };
 
   try {
@@ -66,9 +80,7 @@ exports.register = async (req, res) => {
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "Email is already registered" });
+      return res.status(400).json({ message: "Email is already registered" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -88,17 +100,12 @@ exports.register = async (req, res) => {
     await user.save();
     await sendOTPEmail(email, otp);
 
-    res
-      .status(200)
-      .json({
-        message:
-          "OTP sent to your email. Please verify to complete registration.",
-      });
+    res.status(200).json({
+      message: "OTP sent to your email. Please verify to complete registration.",
+    });
   } catch (error) {
     console.error("Registration error:", error.message);
-    res
-      .status(500)
-      .json({ message: "Error registering user. Please try again." });
+    res.status(500).json({ message: "Error registering user. Please try again." });
   }
 };
 
@@ -120,7 +127,7 @@ exports.verifyOTP = async (req, res) => {
     const token = jwt.sign(
       { email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "6h" }
     );
     return res.json({ message: "OTP verified successfully", token });
   } else {
@@ -198,8 +205,7 @@ exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (!user)
-      return res.status(400).json({ message: "User not found" });
+    if (!user) return res.status(400).json({ message: "User not found" });
 
     // Generate token and set expiry (e.g., 1 hour)
     const resetToken = generateResetToken();
@@ -245,15 +251,14 @@ exports.resetPassword = async (req, res) => {
     return res.status(500).json({ message: "Internal server error." });
   }
 };
+
 // Get user profile endpoint
 exports.profile = async (req, res) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findOne({ email: decoded.email }).select(
-      "-password -otp -otpExpires"
-    );
+    const user = await User.findOne({ email: decoded.email }).select("-password -otp -otpExpires");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -283,9 +288,7 @@ exports.getGroups = async (req, res) => {
     res.status(200).json({ groups });
   } catch (err) {
     console.error("Error fetching groups:", err.message);
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", error: err.message });
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
   }
 };
 
@@ -319,14 +322,10 @@ exports.createGroup = async (req, res) => {
     await newGroup.save();
 
     console.log("New group created:", newGroup);
-    res
-      .status(201)
-      .json({ message: "Group created successfully", group: newGroup });
+    res.status(201).json({ message: "Group created successfully", group: newGroup });
   } catch (err) {
     console.error("Error creating group:", err.message);
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", error: err.message });
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
   }
 };
 
@@ -371,16 +370,12 @@ exports.updateUser = async (req, res) => {
     const { email } = req.params;
     const token = req.header("Authorization")?.replace("Bearer ", "");
     if (!token) {
-      return res
-        .status(401)
-        .json({ message: "Unauthorized: No token provided" });
+      return res.status(401).json({ message: "Unauthorized: No token provided" });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (decoded.email !== email) {
-      return res
-        .status(403)
-        .json({ message: "You are not authorized to update this profile" });
+      return res.status(403).json({ message: "You are not authorized to update this profile" });
     }
 
     const { name, password, role } = req.body;
@@ -402,14 +397,10 @@ exports.updateUser = async (req, res) => {
 
     await user.save();
 
-    res
-      .status(200)
-      .json({ message: "User updated successfully", user });
+    res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
     console.error("Error updating user:", error);
-    res
-      .status(500)
-      .json({ message: "Error updating user profile", error: error.message });
+    res.status(500).json({ message: "Error updating user profile", error: error.message });
   }
 };
 
@@ -490,25 +481,17 @@ exports.getNotifications = async (req, res) => {
   try {
     const token = req.header("Authorization");
     if (!token) {
-      return res
-        .status(401)
-        .json({ message: "Authorization header is missing" });
+      return res.status(401).json({ message: "Authorization header is missing" });
     }
 
-    const decoded = jwt.verify(
-      token.replace("Bearer ", ""),
-      process.env.JWT_SECRET
-    );
+    const decoded = jwt.verify(token.replace("Bearer ", ""), process.env.JWT_SECRET);
 
     const user = await User.findOne({ email: decoded.email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const notifications = await Notification.find({ to: user._id }).sort({
-      createdAt: -1,
-    });
-
+    const notifications = await Notification.find({ to: user._id }).sort({ createdAt: -1 });
     res.status(200).json({ notifications });
   } catch (error) {
     console.error("Error fetching notifications:", error);
