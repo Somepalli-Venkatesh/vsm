@@ -11,7 +11,6 @@ import { FaArrowLeft } from "react-icons/fa";
 
 // Socket configuration
 const socket = io("https://vsm-virtual-study-backend.vercel.app", {
-  transports: ["websocket", "polling"],
   reconnection: true,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,

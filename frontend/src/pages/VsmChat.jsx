@@ -19,11 +19,8 @@ import katex from "katex";
 import openAiGif from "../assets/hina.gif";
 
 const socket = io("https://vsm-virtual-study-backend.vercel.app", {
-  transports: ["websocket", "polling"],
-  reconnection: true,
-  reconnectionDelay: 1000,
-  reconnectionDelayMax: 5000,
-  reconnectionAttempts: Infinity,
+  transports: ["websocket"],
+  upgrade: false,
 });
 
 const VsmChat = ({ onBack }) => {

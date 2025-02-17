@@ -28,13 +28,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 // ----- SOCKET INSTANCE -----
 const socket = io("https://vsm-virtual-study-backend.vercel.app", {
-  transports: ["websocket", "polling"],
-  reconnection: true,
   reconnectionDelay: 1000,
-  reconnectionDelayMax: 5000,
-  reconnectionAttempts: Infinity,
+  reconnectionAttempts: 5,
+  transports: ["websocket"],
 });
-
 // Helper function to ensure a Base64 string is formatted as a data URI
 const formatImageSrc = (image) => {
   if (!image) return null;

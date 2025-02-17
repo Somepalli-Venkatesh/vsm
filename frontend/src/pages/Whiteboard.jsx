@@ -16,14 +16,14 @@ import {
 } from "react-icons/fa";
 
 // Initialize socket connection
-const socket = io('http://localhost:5000');
+const socket = io("https://vsm-virtual-study-backend.vercel.app");
 
-socket.on('connect', () => {
-  console.log('Connected to server');
+socket.on("connect", () => {
+  console.log("Connected to server");
 });
 
-socket.on('connect_error', (error) => {
-  console.error('Connection error:', error);
+socket.on("connect_error", (error) => {
+  console.error("Connection error:", error);
 });
 
 // Get fabric from window object
