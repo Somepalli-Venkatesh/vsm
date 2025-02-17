@@ -27,7 +27,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // ----- SOCKET INSTANCE -----
-const socket = io("https://vsm-virtual-study-backend.vercel.app", {
+const socket = io("https://vsm-virtual-study-backend.onrender.com/", {
   reconnectionDelay: 1000,
   reconnectionAttempts: 5,
   transports: ["websocket"],

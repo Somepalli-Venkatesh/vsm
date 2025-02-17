@@ -18,7 +18,7 @@ import { useToast } from "../hooks/use-toast";
 import katex from "katex";
 import openAiGif from "../assets/hina.gif";
 
-const socket = io("https://vsm-virtual-study-backend.vercel.app", {
+const socket = io("https://vsm-virtual-study-backend.onrender.com/", {
   transports: ["websocket"],
   upgrade: false,
 });
