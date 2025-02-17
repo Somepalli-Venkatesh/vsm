@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { X, Loader2 } from "lucide-react"; // Icon for close & loading spinner
@@ -19,19 +20,11 @@ const DeleteUserModal = ({ selectedItem, closeDeleteModal, fetchUsers }) => {
     setLoading(true); // Show spinner
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/admin/users/${selectedItem.email}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error deleting user");
-      }
+      await axios.delete(`/admin/users/${selectedItem.email}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       toast.success(`${selectedItem.name} has been deleted successfully.`, {
         position: "top-right",
@@ -57,28 +50,33 @@ const DeleteUserModal = ({ selectedItem, closeDeleteModal, fetchUsers }) => {
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-lg flex items-center justify-center z-50 p-4">
       {/* Modal Container */}
-      <div className="relative bg-gray-900 text-white p-8 rounded-xl w-full max-w-md border 
-        border-gray-700 shadow-2xl">
-        
+      <div
+        className="relative bg-gray-900 text-white p-8 rounded-xl w-full max-w-md border 
+        border-gray-700 shadow-2xl"
+      >
         {/* Close Button */}
-        <button 
+        <button
           onClick={() => {
             closeDeleteModal();
             setDeleteInput("");
           }}
-          className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
+          className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
+        >
           <X size={24} />
         </button>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-red-400 to-pink-500 
-          bg-clip-text text-transparent mb-6">
+        <h2
+          className="text-2xl font-bold text-center bg-gradient-to-r from-red-400 to-pink-500 
+          bg-clip-text text-transparent mb-6"
+        >
           Confirm Deletion
         </h2>
 
         {/* Warning Message */}
         <p className="text-lg text-center mb-4">
-          Are you sure you want to delete <strong className="text-red-400">{selectedItem.name}</strong>?
+          Are you sure you want to delete{" "}
+          <strong className="text-red-400">{selectedItem.name}</strong>?
         </p>
 
         {/* Confirmation Input */}
@@ -108,7 +106,9 @@ const DeleteUserModal = ({ selectedItem, closeDeleteModal, fetchUsers }) => {
             className="px-6 py-2 bg-red-500 text-white rounded-lg transition
               hover:bg-red-600 flex items-center justify-center"
           >
-            {loading ? <Loader2 className="animate-spin mr-2" size={20} /> : null}
+            {loading ? (
+              <Loader2 className="animate-spin mr-2" size={20} />
+            ) : null}
             {loading ? "Deleting..." : "Delete"}
           </button>
         </div>

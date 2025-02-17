@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "../api/axios";
 import { toast } from "react-toastify";
 import { FiLoader } from "react-icons/fi";
 
@@ -15,16 +16,14 @@ const DeleteGroupModal = ({ selectedGroup, onClose, fetchGroups }) => {
     setIsDeleting(true); // Show spinner
 
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/admin/groups/${selectedGroup._id}`,
+      const response = await axios.delete(
+        `/admin/groups/${selectedGroup._id}`,
         {
-          method: "DELETE",
           headers: { "Content-Type": "application/json" },
         }
       );
 
-      if (!response.ok) throw new Error("Failed to delete group.");
-
+      // Axios throws an error for non-2xx status codes, so no manual check is needed here
       toast.success(` ${selectedGroup.name} deleted successfully!`);
       fetchGroups();
       onClose();
@@ -44,8 +43,8 @@ const DeleteGroupModal = ({ selectedGroup, onClose, fetchGroups }) => {
         </h2>
 
         <p className="mb-4 text-gray-300">
-          Are you sure you want to delete <strong>{selectedGroup.name}</strong>? This action
-          cannot be undone.
+          Are you sure you want to delete <strong>{selectedGroup.name}</strong>?
+          This action cannot be undone.
         </p>
 
         <label className="block text-sm font-medium text-gray-400 mb-2">

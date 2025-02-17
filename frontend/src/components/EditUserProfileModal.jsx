@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { X, Loader2 } from "lucide-react"; // Loader2 for spinning effect
@@ -21,17 +22,10 @@ const EditUserProfileModal = ({ selectedItem, onClose, fetchUsers }) => {
       formData.append("email", updatedProfile.email);
       if (file) formData.append("image", file);
 
-      const response = await fetch(
-        `http://localhost:5000/api/admin/users/${updatedProfile.email}`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error updating profile");
-      }
+      // Axios PUT request with proper headers for form data
+      await axios.put(`/admin/users/${updatedProfile.email}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       toast.success(`Profile of ${updatedProfile.name} updated successfully!`, {
         position: "top-right",
@@ -86,19 +80,23 @@ const EditUserProfileModal = ({ selectedItem, onClose, fetchUsers }) => {
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-lg flex items-center justify-center z-50 p-4">
       {/* Modal Container */}
-      <div className="relative bg-gray-900 text-white p-8 rounded-xl w-full max-w-lg 
-        border border-gray-700 shadow-2xl">
-        
+      <div
+        className="relative bg-gray-900 text-white p-8 rounded-xl w-full max-w-lg 
+        border border-gray-700 shadow-2xl"
+      >
         {/* Close Button */}
-        <button 
+        <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
+          className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
+        >
           <X size={24} />
         </button>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-cyan-400 to-blue-400 
-          bg-clip-text text-transparent mb-6">
+        <h2
+          className="text-2xl font-bold text-center bg-gradient-to-r from-cyan-400 to-blue-400 
+          bg-clip-text text-transparent mb-6"
+        >
           Edit Profile
         </h2>
 
@@ -111,8 +109,10 @@ const EditUserProfileModal = ({ selectedItem, onClose, fetchUsers }) => {
               className="w-32 h-32 rounded-full border-4 border-cyan-400 object-cover"
             />
           ) : (
-            <div className="w-32 h-32 rounded-full bg-gray-700 flex items-center 
-              justify-center border-4 border-cyan-400">
+            <div
+              className="w-32 h-32 rounded-full bg-gray-700 flex items-center 
+              justify-center border-4 border-cyan-400"
+            >
               <span className="text-4xl text-white font-bold">
                 {selectedItem.name?.charAt(0)}
               </span>
@@ -161,16 +161,18 @@ const EditUserProfileModal = ({ selectedItem, onClose, fetchUsers }) => {
             onClick={onClose}
             className="px-6 py-2 bg-gray-700 text-white rounded-lg transition
               hover:bg-gray-600"
-            >
+          >
             Cancel
           </button>
           <button
             onClick={handleUpdate}
             className="px-6 py-2 bg-cyan-500 text-white rounded-lg transition
               hover:bg-cyan-600 flex items-center justify-center"
-            >
-              {loading ? <Loader2 className="animate-spin mr-2" size={20} /> : null}
-              {loading ? "Updating..." : "Update"}
+          >
+            {loading ? (
+              <Loader2 className="animate-spin mr-2" size={20} />
+            ) : null}
+            {loading ? "Updating..." : "Update"}
           </button>
         </div>
       </div>

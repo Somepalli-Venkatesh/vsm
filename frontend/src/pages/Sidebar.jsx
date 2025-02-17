@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import {
   FaBars,
   FaPlus,
@@ -13,7 +19,7 @@ import {
   FaSave,
 } from "react-icons/fa";
 import io from "socket.io-client";
-import axios from "axios";
+import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import NotificationsPanel from "../components/NotificationsPanel";
 import openAiGif from "../assets/hina.gif";
@@ -27,14 +33,11 @@ const socket = io("http://localhost:5000", {
   transports: ["websocket"],
 });
 
-// ----- AXIOS INSTANCE -----
-const api = axios.create({
-  baseURL: "http://localhost:5000",
-  headers: {
-    "Cache-Control": "no-cache",
-    Pragma: "no-cache",
-  },
-});
+// Helper function to ensure a Base64 string is formatted as a data URI
+const formatImageSrc = (image) => {
+  if (!image) return null;
+  return image.startsWith("data:") ? image : `data:image/png;base64,${image}`;
+};
 
 const Sidebar = ({
   isOpen,
@@ -78,8 +81,12 @@ const Sidebar = ({
       const token = localStorage.getItem("token");
       if (!token || !userId) return;
 
-      const response = await api.get("/api/auth/groups", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get("/auth/groups", {
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.data.groups) {
@@ -96,7 +103,12 @@ const Sidebar = ({
   const fetchUnreadCounts = useCallback(async () => {
     if (!userId) return;
     try {
-      const response = await api.get(`/api/messages/unread/${userId}`);
+      const response = await axios.get(`/messages/unread/${userId}`, {
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+        },
+      });
       const counts = response.data.reduce((acc, { groupId, count }) => {
         acc[groupId] = count;
         return acc;
@@ -113,8 +125,12 @@ const Sidebar = ({
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      const response = await api.get("/api/auth/profile", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get("/auth/profile", {
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const userData = response.data;
@@ -127,7 +143,10 @@ const Sidebar = ({
         const chunkSize = 0x8000; // 32768 bytes
         let binary = "";
         for (let i = 0; i < bytes.length; i += chunkSize) {
-          binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+          binary += String.fromCharCode.apply(
+            null,
+            bytes.subarray(i, i + chunkSize)
+          );
         }
         const base64String = window.btoa(binary);
         setUserProfileImage(`data:image/png;base64,${base64String}`);
@@ -293,7 +312,11 @@ const Sidebar = ({
           className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-80 transition duration-200"
           onClick={onToggle}
         >
-          {isOpen ? <FaArrowLeft className="text-xl" /> : <FaBars className="text-xl" />}
+          {isOpen ? (
+            <FaArrowLeft className="text-xl" />
+          ) : (
+            <FaBars className="text-xl" />
+          )}
         </button>
 
         {/* GIF Button */}
@@ -302,7 +325,11 @@ const Sidebar = ({
             className="w-20 h-20 ml-[-10px] flex items-center justify-center overflow-hidden rounded-full bg-transparent"
             onClick={onToggleOpenAI}
           >
-            <img src={openAiGif} alt="GIF" className="w-full h-full object-cover" />
+            <img
+              src={openAiGif}
+              alt="GIF"
+              className="w-full h-full object-cover"
+            />
           </button>
         </div>
       </div>
@@ -334,7 +361,7 @@ const Sidebar = ({
                     <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-600">
                       {chat.image ? (
                         <img
-                          src={chat.image}
+                          src={formatImageSrc(chat.image)}
                           alt={chat.name}
                           className="object-cover w-full h-full"
                           loading="lazy"
@@ -348,11 +375,12 @@ const Sidebar = ({
                         <p className="font-medium text-gray-100 truncate">
                           {chat.name}
                         </p>
-                        {unreadCounts[chat._id] > 0 && chat._id !== activeChat && (
-                          <span className="bg-red-600 text-white rounded-full px-2 py-0.5 text-xs">
-                            {unreadCounts[chat._id]}
-                          </span>
-                        )}
+                        {unreadCounts[chat._id] > 0 &&
+                          chat._id !== activeChat && (
+                            <span className="bg-red-600 text-white rounded-full px-2 py-0.5 text-xs">
+                              {unreadCounts[chat._id]}
+                            </span>
+                          )}
                       </div>
                       <p className="text-sm text-gray-300 truncate">
                         {chat.lastMessage}
@@ -488,7 +516,7 @@ const UserProfileModal = ({ user, onClose, onProfileUpdated }) => {
       }
 
       setIsUpdating(true);
-      await axios.put(`http://localhost:5000/api/auth/users/${user.email}`, formData, {
+      await axios.put(`/auth/users/${user.email}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -588,7 +616,7 @@ const UserProfileModal = ({ user, onClose, onProfileUpdated }) => {
         </div>
 
         {/* Role (optional) */}
-        {isEditing ? (
+        {isEditing && (
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-300 mb-1">
               Role
@@ -602,7 +630,7 @@ const UserProfileModal = ({ user, onClose, onProfileUpdated }) => {
               <option value="admin">Admin</option>
             </select>
           </div>
-        ) : null}
+        )}
 
         {/* Bottom buttons */}
         <div className="flex justify-end gap-4 mt-6">

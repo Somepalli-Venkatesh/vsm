@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 import Card from "../components/Card";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchBar from "../components/SearchBar";
+import axios from "../api/axios";
 import UserProfileModal from "../components/UserProfileModal";
 import DeleteUserModal from "../components/DeleteUserModal";
 import EditUserProfileModal from "../components/EditUserProfileModal";
@@ -27,18 +29,14 @@ const AdminDashboard = () => {
   const [groups, setGroups] = useState([]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/');
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
-  // Fetch users from API
+  // Fetch users from API using Axios
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/admin/users");
-      if (!response.ok) {
-        throw new Error("Failed to fetch users");
-      }
-      const data = await response.json();
+      const { data } = await axios.get("/admin/users");
       setUsers(data);
     } catch (error) {
       console.error(error);
@@ -46,12 +44,10 @@ const AdminDashboard = () => {
     }
   };
 
-  // Fetch groups from API
+  // Fetch groups from API using Axios
   const fetchGroups = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/admin/groups");
-      if (!response.ok) throw new Error("Failed to fetch groups");
-      const data = await response.json();
+      const { data } = await axios.get("/admin/groups");
       setGroups(data.data);
     } catch (error) {
       console.error(error);
@@ -90,16 +86,20 @@ const AdminDashboard = () => {
   const renderUsers = () => {
     if (!Array.isArray(users) || users.length === 0) {
       return (
-        <div className="text-white text-center p-8 bg-gray-900/50 rounded-xl backdrop-blur-lg 
-          border border-gray-800/50 shadow-neon">
+        <div
+          className="text-white text-center p-8 bg-gray-900/50 rounded-xl backdrop-blur-lg 
+          border border-gray-800/50 shadow-neon"
+        >
           No users found.
         </div>
       );
     }
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 overflow-y-auto 
-        custom-scrollbar max-h-[calc(100vh-7rem)]">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 overflow-y-auto 
+        custom-scrollbar max-h-[calc(100vh-7rem)]"
+      >
         {users
           .filter(
             (user) =>
@@ -129,30 +129,36 @@ const AdminDashboard = () => {
   const renderGroups = () => {
     if (!Array.isArray(groups) || groups.length === 0) {
       return (
-        <div className="text-white text-center p-8 bg-gray-900/50 rounded-xl backdrop-blur-lg 
-          border border-gray-800/50 shadow-neon">
+        <div
+          className="text-white text-center p-8 bg-gray-900/50 rounded-xl backdrop-blur-lg 
+          border border-gray-800/50 shadow-neon"
+        >
           No groups found.
         </div>
       );
     }
-  
+
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 overflow-y-auto 
-        custom-scrollbar max-h-[calc(100vh-7rem)]">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 overflow-y-auto 
+        custom-scrollbar max-h-[calc(100vh-7rem)]"
+      >
         {groups
           .filter(
             (group) =>
               (group.name &&
                 group.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
               (group.description &&
-                group.description.toLowerCase().includes(searchQuery.toLowerCase()))
+                group.description
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase()))
           )
           .map((group) => {
             // Ensure the image is correctly formatted
             const imageSrc = group.image?.startsWith("data:image")
               ? group.image
               : `data:image/jpeg;base64,${group.image}`;
-  
+
             return (
               <Card
                 key={group._id}
@@ -171,8 +177,6 @@ const AdminDashboard = () => {
       </div>
     );
   };
-  
-  
 
   return (
     <div className="flex min-h-screen bg-black">
@@ -181,11 +185,12 @@ const AdminDashboard = () => {
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-6">
           <SearchBar setSearchQuery={setSearchQuery} />
-          
         </div>
 
-        <div className="bg-gray-900/50 rounded-xl backdrop-blur-lg shadow-2xl 
-          border border-gray-800/50 hover:border-pink-500/30 transition-all duration-300">
+        <div
+          className="bg-gray-900/50 rounded-xl backdrop-blur-lg shadow-2xl 
+          border border-gray-800/50 hover:border-pink-500/30 transition-all duration-300"
+        >
           {activeTab === "users" ? renderUsers() : renderGroups()}
         </div>
       </div>

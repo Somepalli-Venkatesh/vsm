@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { FaTimes, FaUserPlus } from "react-icons/fa";
 
 /**
@@ -24,19 +24,38 @@ const GroupDetailsPanel = ({
 
   if (!show || !selectedChat) return null;
 
-  // Utility function to get image source
+  // Updated utility function to get image source
   const getImageSrc = (img) => {
     if (!img) return "https://via.placeholder.com/150";
-    if (typeof img === "string" && img.startsWith("data:image")) return img;
-    if (typeof img === "object" && img.data) {
-      return `data:image/jpeg;base64,${btoa(
-        new Uint8Array(img.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ""
-        )
-      )}`;
+
+    // If img is a string, check if it's a data URL or a regular URL.
+    if (typeof img === "string") {
+      return img.startsWith("data:image") ? img : img;
     }
-    return img;
+
+    // If img is a File or Blob object, create a temporary URL.
+    if (img instanceof Blob) {
+      return URL.createObjectURL(img);
+    }
+
+    // If img is an object with a "data" property, convert to a base64 data URL.
+    if (img.data) {
+      try {
+        const base64String = btoa(
+          new Uint8Array(img.data).reduce(
+            (data, byte) => data + String.fromCharCode(byte),
+            ""
+          )
+        );
+        return `data:image/jpeg;base64,${base64String}`;
+      } catch (error) {
+        console.error("Error converting image data:", error);
+        return "https://via.placeholder.com/150";
+      }
+    }
+
+    // Fallback in case none of the conditions are met.
+    return "https://via.placeholder.com/150";
   };
 
   // Handle delete button click with debug logs
@@ -63,12 +82,9 @@ const GroupDetailsPanel = ({
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:5000/api/groups/${selectedChat._id}/deleteAll`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`/groups/${selectedChat._id}/deleteAll`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       onGroupDeleted && onGroupDeleted(selectedChat._id);
       setShowDeletePopup(false);
       setConfirmGroupName("");

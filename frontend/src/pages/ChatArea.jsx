@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
-import axios from "axios";
+import axios from "../api/axios";
 import { useContextMenu } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 import MessageList from "../components/MessageList";
-import { Search, Users, Phone, Video, X } from "lucide-react";
+import { Search, Users, X } from "lucide-react";
 import MessageInput from "../components/MessageInput";
 import MessageContext from "../components/MessageContext";
 import { FaArrowLeft } from "react-icons/fa";
@@ -20,6 +20,13 @@ const socket = io("http://localhost:5000", {
 const MENU_ID = "message-context-menu";
 const MESSAGES_PER_PAGE = 50;
 
+// Helper function to format image sources
+const formatImageSrc = (image) => {
+  if (!image) return null;
+  // If image already starts with "data:" assume it's properly formatted.
+  return image.startsWith("data:") ? image : `data:image/png;base64,${image}`;
+};
+
 const ChatArea = ({
   selectedChat,
   userId,
@@ -27,7 +34,7 @@ const ChatArea = ({
   onNewMessage = () => {},
   showGroupDetails, // Toggles the GroupDetailsPanel in StudentDashboard
   onToggleDetails, // Toggles the GroupDetailsPanel in StudentDashboard
-  onBack, // New prop: called when the back arrow is clicked (for mobile)
+  onBack, // Called when the back arrow is clicked (for mobile)
 }) => {
   const [messages, setMessages] = useState([]);
   const [filteredMessages, setFilteredMessages] = useState([]);
@@ -57,7 +64,7 @@ const ChatArea = ({
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:5000/api/messages/${selectedChat._id}?page=${pageNum}&limit=${MESSAGES_PER_PAGE}`
+        `/messages/${selectedChat._id}?page=${pageNum}&limit=${MESSAGES_PER_PAGE}`
       );
       const newMessages = response.data;
       if (pageNum === 1) {
@@ -179,7 +186,7 @@ const ChatArea = ({
           msg.senderId.name ||
           msg.senderName ||
           ""
-        )?.toLowerCase();
+        ).toLowerCase();
         const fileName = msg.fileData?.fileName?.toLowerCase() || "";
         const searchLower = searchQuery.toLowerCase();
         return (
@@ -199,10 +206,7 @@ const ChatArea = ({
     formData.append("file", file);
     try {
       setUploading(true);
-      const response = await axios.post(
-        "http://localhost:5000/api/upload",
-        formData
-      );
+      const response = await axios.post("/upload", formData);
       await handleSendMessage(null, response.data.fileData);
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -227,10 +231,7 @@ const ChatArea = ({
       senderName: currentUser?.name,
     };
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/messages",
-        newMessage
-      );
+      const response = await axios.post("/messages", newMessage);
       socket.emit("sendMessage", response.data);
       setMessage("");
       setShowEmojiPicker(false);
@@ -268,9 +269,7 @@ const ChatArea = ({
 
   const handleDeleteMessage = async (args) => {
     try {
-      await axios.delete(
-        `http://localhost:5000/api/messages/${args.props.messageId}`
-      );
+      await axios.delete(`/messages/${args.props.messageId}`);
       setMessages((prev) =>
         prev.filter((msg) => msg._id !== args.props.messageId)
       );
@@ -299,10 +298,9 @@ const ChatArea = ({
   const handleEditMessage = async (messageId) => {
     if (!editMessage.trim()) return;
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/messages/${messageId}`,
-        { message: editMessage }
-      );
+      const response = await axios.put(`/messages/${messageId}`, {
+        message: editMessage,
+      });
       setMessages((prev) =>
         prev.map((msg) => (msg._id === messageId ? response.data : msg))
       );
@@ -317,7 +315,7 @@ const ChatArea = ({
     }
   };
 
-  // If no chat is selected, you might want to render a placeholder.
+  // If no chat is selected, render a placeholder.
   if (!selectedChat) {
     return (
       <div className="flex items-center justify-center h-full bg-gradient-to-br from-blue-50 to-purple-50">
@@ -346,7 +344,11 @@ const ChatArea = ({
               </button>
               <div className="relative">
                 <img
-                  src={selectedChat.image || "https://via.placeholder.com/150"}
+                  src={
+                    selectedChat.image
+                      ? formatImageSrc(selectedChat.image)
+                      : "https://via.placeholder.com/150"
+                  }
                   alt={selectedChat.name}
                   className="w-12 h-12 rounded-full object-cover border-2 border-purple-500 shadow-[0_0_10px_rgba(147,51,234,0.5)]"
                 />

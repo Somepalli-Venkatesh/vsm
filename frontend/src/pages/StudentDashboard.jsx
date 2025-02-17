@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./Sidebar";
@@ -57,10 +57,9 @@ const StudentDashboard = () => {
         toast.error("Authentication required");
         return;
       }
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/profile",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await axios.get("/auth/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setUserName(response.data.name || "User");
       setUserId(response.data._id);
     } catch (error) {
@@ -74,16 +73,13 @@ const StudentDashboard = () => {
     try {
       if (!userId) return;
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/notifications",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-          },
-        }
-      );
+      const response = await axios.get("/auth/notifications", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+        },
+      });
       if (response.data.notifications) {
         setNotifications(response.data.notifications);
       }
@@ -97,10 +93,9 @@ const StudentDashboard = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token || !userId) return;
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/groups",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await axios.get("/auth/groups", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (response.data.groups) {
         setChats(response.data.groups);
       }
@@ -115,10 +110,9 @@ const StudentDashboard = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token || !userId) return;
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/groups",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await axios.get("/auth/groups", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (response.data.groups) {
         setChats(response.data.groups);
       }
@@ -132,10 +126,9 @@ const StudentDashboard = () => {
     try {
       if (!userId) return;
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/notifications",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await axios.get("/auth/notifications", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (response.data.notifications) {
         setNotifications(response.data.notifications);
         await refreshGroups();
@@ -155,26 +148,22 @@ const StudentDashboard = () => {
         if (cachedMember) {
           return JSON.parse(cachedMember);
         }
-        const response = await fetch(
-          `http://localhost:5000/api/auth/user/${memberId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
+        const response = await axios.get(`/auth/user/${memberId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const userData = response.data;
+        const memberData = {
+          id: memberId,
+          name: userData.name,
+          image: userData.image,
+          status: "online",
+          role: userData.role,
+        };
+        sessionStorage.setItem(
+          `member-${memberId}`,
+          JSON.stringify(memberData)
         );
-        if (response.ok) {
-          const userData = await response.json();
-          const memberData = {
-            id: memberId,
-            name: userData.name,
-            image: userData.image,
-            status: "online",
-            role: userData.role,
-          };
-          sessionStorage.setItem(
-            `member-${memberId}`,
-            JSON.stringify(memberData)
-          );
-          return memberData;
-        }
-        return null;
+        return memberData;
       });
       const memberDetails = await Promise.all(memberPromises);
       setGroupMembers(memberDetails.filter((member) => member !== null));
@@ -188,20 +177,18 @@ const StudentDashboard = () => {
       if (selectedChat?.createdBy) {
         try {
           const token = localStorage.getItem("token");
-          const response = await fetch(
-            `http://localhost:5000/api/auth/user/${selectedChat.createdBy}`,
+          const response = await axios.get(
+            `/auth/user/${selectedChat.createdBy}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
-          if (response.ok) {
-            const userData = await response.json();
-            setCreatorDetails({
-              _id: selectedChat.createdBy,
-              name: userData.name,
-              image: userData.image,
-              status: "online",
-              role: "Creator",
-            });
-          }
+          const userData = response.data;
+          setCreatorDetails({
+            _id: selectedChat.createdBy,
+            name: userData.name,
+            image: userData.image,
+            status: "online",
+            role: "Creator",
+          });
         } catch (error) {
           console.error("Error fetching creator details:", error);
         }
@@ -275,28 +262,25 @@ const StudentDashboard = () => {
       members: [userId],
     };
     try {
-      const response = await fetch("http://localhost:5000/api/auth/groups", {
-        method: "POST",
+      const response = await axios.post("/auth/groups", newGroupData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(newGroupData),
       });
-      if (response.ok) {
-        const result = await response.json();
-        setChats([...chats, result.group]);
-        setModalOpen(false);
-        setNewGroupName("");
-        setNewGroupDetails("");
-        setNewGroupImage(null);
-        toast.success(result.message);
-      } else {
-        const errorData = await response.json();
-        toast.error(errorData.message || "Failed to create group");
-      }
+      const result = response.data;
+      setChats([...chats, result.group]);
+      setModalOpen(false);
+      setNewGroupName("");
+      setNewGroupDetails("");
+      setNewGroupImage(null);
+      toast.success(result.message);
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message || "Failed to create group");
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
       console.error(error);
     }
   };
@@ -317,7 +301,7 @@ const StudentDashboard = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/api/messages",
+        "/messages",
         {
           chatId: selectedChat._id,
           content: currentMessage,

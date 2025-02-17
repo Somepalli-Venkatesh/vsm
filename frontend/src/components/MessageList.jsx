@@ -34,7 +34,8 @@ const MessageList = ({
       return date.toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
-        year: date.getFullYear() !== today.getFullYear() ? "numeric" : undefined,
+        year:
+          date.getFullYear() !== today.getFullYear() ? "numeric" : undefined,
       });
     }
   };
@@ -131,13 +132,13 @@ const MessageList = ({
 
   return (
     <div className="flex flex-col h-full bg-gray-900">
-      <div 
+      <div
         className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar"
         style={{
-          '--scrollbar-color': '#7C3AED',
-          '--scrollbar-bg': '#1F2937',
-          scrollbarWidth: 'thin',
-          scrollbarColor: 'var(--scrollbar-color) var(--scrollbar-bg)',
+          "--scrollbar-color": "#7C3AED",
+          "--scrollbar-bg": "#1F2937",
+          scrollbarWidth: "thin",
+          scrollbarColor: "var(--scrollbar-color) var(--scrollbar-bg)",
         }}
       >
         <style jsx global>{`
@@ -159,7 +160,7 @@ const MessageList = ({
           }
 
           .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #9061F9;
+            background: #9061f9;
             box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
           }
 
@@ -184,9 +185,9 @@ const MessageList = ({
           }
         `}</style>
 
-        {/* Rest of the component content remains the same */}
         {filteredMessages.map((msg, index) => {
-          const messageSenderId = msg.senderId._id || msg.senderId;
+          // Use optional chaining to safely access _id
+          const messageSenderId = msg.senderId?._id || msg.senderId;
           const isOwnMessage = messageSenderId === userId;
           const senderName = msg.senderName || "Unknown";
           const messageDate = formatDate(msg.timestamp);
@@ -204,7 +205,9 @@ const MessageList = ({
                 </div>
               )}
               <div
-                className={`flex ${isOwnMessage ? "justify-end" : "justify-start"} group`}
+                className={`flex ${
+                  isOwnMessage ? "justify-end" : "justify-start"
+                } group`}
                 onContextMenu={(e) => handleContextMenu(e, msg)}
               >
                 <div

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
@@ -36,7 +36,7 @@ const ForgotPassword = () => {
     setMessage("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/forgot-password", { email });
+      const response = await axios.post("/auth/forgot-password", { email });
       setMessage(response.data.message);
 
       if (response.data.success) {
@@ -63,18 +63,27 @@ const ForgotPassword = () => {
 
     try {
       // Step 1: Verify OTP
-      const verifyResponse = await axios.post("http://localhost:5000/api/auth/verify-otp", { email, otp });
+      const verifyResponse = await axios.post("/auth/verify-otp", {
+        email,
+        otp,
+      });
 
       if (verifyResponse.data.message === "OTP verified successfully") {
         // Step 2: Reset password if OTP is correct
-        const resetResponse = await axios.post("http://localhost:5000/api/auth/reset-password", { email, newPassword });
+        const resetResponse = await axios.post("/auth/reset-password", {
+          email,
+          newPassword,
+        });
         setMessage(resetResponse.data.message);
         navigate("/login"); // Redirect to login after password reset
       } else {
         setMessage("Invalid OTP.");
       }
     } catch (error) {
-      setMessage(error.response?.data?.message || "Failed to verify OTP or reset password");
+      setMessage(
+        error.response?.data?.message ||
+          "Failed to verify OTP or reset password"
+      );
     } finally {
       setLoading(false);
     }
@@ -83,9 +92,13 @@ const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-1000 p-6">
       <div className="w-full max-w-md bg-gray-950 p-8 rounded-lg">
-        <h2 className="text-3xl font-semibold text-center text-white mb-6">Forgot Password</h2>
+        <h2 className="text-3xl font-semibold text-center text-white mb-6">
+          Forgot Password
+        </h2>
 
-        {message && <div className="text-center text-red-400 mb-4">{message}</div>}
+        {message && (
+          <div className="text-center text-red-400 mb-4">{message}</div>
+        )}
 
         {/* Step 1: Enter Email to receive OTP */}
         {step === 1 && (
@@ -111,7 +124,10 @@ const ForgotPassword = () => {
 
         {/* Step 2: Enter OTP and New Password */}
         {step === 2 && (
-          <form onSubmit={handleVerifyOTPAndResetPassword} className="space-y-4">
+          <form
+            onSubmit={handleVerifyOTPAndResetPassword}
+            className="space-y-4"
+          >
             <input
               type="text"
               name="otp"

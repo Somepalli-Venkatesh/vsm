@@ -1,6 +1,6 @@
 // UserProfileModal.jsx
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { FaTimes, FaEdit, FaSave } from "react-icons/fa";
 import { toast } from "react-toastify";
 
@@ -32,7 +32,7 @@ const UserProfileModel = ({ user, onClose, onProfileUpdated }) => {
         formData.append("image", updatedImage);
       }
       setIsUpdating(true);
-      await axios.put(`http://localhost:5000/api/auth/users/${user.email}`, formData, {
+      await axios.put(`/auth/users/${user.email}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -55,28 +55,52 @@ const UserProfileModel = ({ user, onClose, onProfileUpdated }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
       <div className="bg-gray-800 p-6 rounded-lg w-80 relative shadow-xl">
-        <button onClick={onClose} className="absolute top-3 right-3 text-gray-300 hover:text-white">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-300 hover:text-white"
+        >
           <FaTimes />
         </button>
-        <h2 className="text-2xl font-bold mb-4 text-center text-purple-300">User Profile</h2>
-        {errorMsg && <p className="text-red-400 text-sm mb-2 text-center">{errorMsg}</p>}
+        <h2 className="text-2xl font-bold mb-4 text-center text-purple-300">
+          User Profile
+        </h2>
+        {errorMsg && (
+          <p className="text-red-400 text-sm mb-2 text-center">{errorMsg}</p>
+        )}
         <div className="flex justify-center mb-4">
           {user.image && !updatedImage ? (
-            <img src={user.image} alt="User Avatar" className="w-20 h-20 rounded-full object-cover ring-2 ring-purple-500" />
+            <img
+              src={user.image}
+              alt="User Avatar"
+              className="w-20 h-20 rounded-full object-cover ring-2 ring-purple-500"
+            />
           ) : updatedImage ? (
-            <img src={URL.createObjectURL(updatedImage)} alt="New Avatar" className="w-20 h-20 rounded-full object-cover ring-2 ring-purple-500" />
+            <img
+              src={URL.createObjectURL(updatedImage)}
+              alt="New Avatar"
+              className="w-20 h-20 rounded-full object-cover ring-2 ring-purple-500"
+            />
           ) : (
             <div className="text-gray-400 text-6xl">U</div>
           )}
         </div>
         {isEditing && (
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-300 mb-1">Update Profile Image</label>
-            <input type="file" accept="image/*" onChange={handleFileChange} className="w-full text-sm text-gray-400" />
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Update Profile Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full text-sm text-gray-400"
+            />
           </div>
         )}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-300 mb-1">Name</label>
+          <label className="block text-sm font-medium text-gray-300 mb-1">
+            Name
+          </label>
           {isEditing ? (
             <input
               type="text"
@@ -89,12 +113,16 @@ const UserProfileModel = ({ user, onClose, onProfileUpdated }) => {
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+          <label className="block text-sm font-medium text-gray-300 mb-1">
+            Email
+          </label>
           <p className="text-gray-200">{user.email}</p>
         </div>
         {isEditing ? (
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-300 mb-1">Role</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Role
+            </label>
             <select
               value={updatedRole}
               onChange={(e) => setUpdatedRole(e.target.value)}
