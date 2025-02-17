@@ -22,7 +22,7 @@ const server = http.createServer(app);
 // Configure Socket.io to accept any origin
 const io = new Server(server, {
   cors: {
-    origin: "https://vsm-virtual-study-front.vercel.app", // Allow requests only from this origin
+    origin: "https://vsm-virtual-study-front.vercel.app/dashboard", // Allow requests only from this origin
     methods: ["GET", "POST"],
     credentials: true,
   },
