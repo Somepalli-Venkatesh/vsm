@@ -27,10 +27,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // ----- SOCKET INSTANCE -----
-const socket = io("http://localhost:5000", {
+const socket = io("https://vsm-virtual-study-backend.vercel.app", {
+  transports: ["websocket", "polling"],
+  reconnection: true,
   reconnectionDelay: 1000,
-  reconnectionAttempts: 5,
-  transports: ["websocket"],
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: Infinity,
 });
 
 // Helper function to ensure a Base64 string is formatted as a data URI
@@ -527,16 +529,12 @@ const UserProfileModal = ({ user, onClose, onProfileUpdated }) => {
       }
 
       setIsUpdating(true);
-      await axios.put(
-        `http://localhost:5000/api/auth/users/${user.email}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.put(`/auth/users/${user.email}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setTimeout(() => {
         toast.success("Profile updated successfully!");
         onProfileUpdated && onProfileUpdated();

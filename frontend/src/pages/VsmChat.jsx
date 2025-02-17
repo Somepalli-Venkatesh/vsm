@@ -18,9 +18,12 @@ import { useToast } from "../hooks/use-toast";
 import katex from "katex";
 import openAiGif from "../assets/hina.gif";
 
-const socket = io("http://localhost:5000", {
-  transports: ["websocket"],
-  upgrade: false,
+const socket = io("https://vsm-virtual-study-backend.vercel.app", {
+  transports: ["websocket", "polling"],
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: Infinity,
 });
 
 const VsmChat = ({ onBack }) => {
@@ -83,7 +86,7 @@ const VsmChat = ({ onBack }) => {
   };
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:5000", {
+    socketRef.current = io("https://vsm-virtual-study-backend.vercel.app", {
       transports: ["websocket"],
       upgrade: false,
     });

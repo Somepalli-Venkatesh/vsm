@@ -18,10 +18,15 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
-  cors: { origin: "*" },
+  cors: {
+    origin: "*", // Allows all origins
+    methods: ["GET", "POST"], // Allowed HTTP methods for socket polling
+  },
+  transports: ["websocket", "polling"], // Ensure both transports are allowed
   maxHttpBufferSize: 1e8,
   pingTimeout: 60000,
 });
+
 
 const COHERE_API_KEY = process.env.COHERE_API_KEY;
 

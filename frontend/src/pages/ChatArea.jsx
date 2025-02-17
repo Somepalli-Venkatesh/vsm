@@ -10,7 +10,8 @@ import MessageContext from "../components/MessageContext";
 import { FaArrowLeft } from "react-icons/fa";
 
 // Socket configuration
-const socket = io("http://localhost:5000", {
+const socket = io("https://vsm-virtual-study-backend.vercel.app", {
+  transports: ["websocket", "polling"],
   reconnection: true,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
