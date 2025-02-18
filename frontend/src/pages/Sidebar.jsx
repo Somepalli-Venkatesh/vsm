@@ -32,6 +32,7 @@ const socket = io("https://vsm-virtual-study-backend.onrender.com/", {
   reconnectionAttempts: 5,
   transports: ["websocket"],
 });
+
 // Helper function to ensure a Base64 string is formatted as a data URI
 const formatImageSrc = (image) => {
   if (!image) return null;
@@ -50,8 +51,7 @@ const Sidebar = ({
   notifications,
   showNotifications,
   onToggleNotifications,
-  // onStatusUpdate & onGroupUpdate are passed from parent – they will update the notifications data,
-  // for example by marking a notification as read (without removing it)
+  // onStatusUpdate & onGroupUpdate are passed from parent – they will update the notifications data
   onStatusUpdate = () => {},
   onGroupUpdate = () => {},
   showOpenAI,
@@ -73,7 +73,7 @@ const Sidebar = ({
   // Profile Modal
   const [showProfileModal, setShowProfileModal] = useState(false);
 
-  // Keep track of component mount time to manage spinner vs. "No chats" message
+  // Keep track of component mount time for spinner vs. "No chats" message
   const mountTimeRef = useRef(Date.now());
 
   // -------------------- FETCH GROUPS --------------------
@@ -81,7 +81,6 @@ const Sidebar = ({
     try {
       const token = localStorage.getItem("token");
       if (!token || !userId) return;
-
       const response = await axios.get("/auth/groups", {
         headers: {
           "Cache-Control": "no-cache",
@@ -89,7 +88,6 @@ const Sidebar = ({
           Authorization: `Bearer ${token}`,
         },
       });
-
       if (response.data.groups) {
         setLocalChats(response.data.groups);
       }
@@ -125,7 +123,6 @@ const Sidebar = ({
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
-
       const response = await axios.get("/auth/profile", {
         headers: {
           "Cache-Control": "no-cache",
@@ -133,13 +130,10 @@ const Sidebar = ({
           Authorization: `Bearer ${token}`,
         },
       });
-
       const userData = response.data;
       setUserName(userData.name || "User");
       setUserEmail(userData.email || "");
-
       if (userData.image?.data) {
-        // Convert buffer to base64
         const bytes = new Uint8Array(userData.image.data);
         const chunkSize = 0x8000; // 32768 bytes
         let binary = "";
@@ -191,10 +185,8 @@ const Sidebar = ({
   // -------------------- INITIAL SETUP --------------------
   useEffect(() => {
     Promise.all([fetchGroups(), fetchUnreadCounts(), fetchUserProfile()]);
-
     const groupsInterval = setInterval(fetchGroups, 5000);
     const unreadCountsInterval = setInterval(fetchUnreadCounts, 5000);
-
     return () => {
       clearInterval(groupsInterval);
       clearInterval(unreadCountsInterval);
@@ -206,10 +198,8 @@ const Sidebar = ({
     if (userId) {
       socket.connect();
       socket.emit("setUser", userId);
-
       socket.on("newMessage", handleNewMessage);
       socket.on("messagesMarkedAsRead", handleMessagesRead);
-
       return () => {
         socket.off("newMessage", handleNewMessage);
         socket.off("messagesMarkedAsRead", handleMessagesRead);
@@ -248,22 +238,20 @@ const Sidebar = ({
   const showSpinnerForChats =
     isLoading || (localChats.length === 0 && timeSinceMount < 3000);
 
-  // -------------------- COMPUTE UNREAD NOTIFICATIONS COUNT --------------------
-  // Instead of showing notifications.length, we calculate how many notifications are still "unread"
+  // Compute unread notifications count
   const unreadCount = notifications.filter(
     (n) => !n.read && (!n.status || n.status === "pending")
   ).length;
 
-  // -------------------- RENDER --------------------
   return (
-    <div className="relative p-4 h-full flex flex-col bg-black text-white shadow-md rounded-lg overflow-visible z-10">
+    <div className="relative p-4 h-screen flex flex-col bg-black text-white shadow-md rounded-lg overflow-hidden z-10">
       {/* Top Section */}
       <div
         className={`mb-4 py-1 flex ${
           isOpen ? "flex-row items-center space-x-2" : "flex-col space-y-2"
         }`}
       >
-        {/* Home */}
+        {/* Home Button */}
         <button
           onClick={() => navigate("/")}
           className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-80 transition duration-200"
@@ -271,7 +259,7 @@ const Sidebar = ({
           <FaHome className="text-xl" />
         </button>
 
-        {/* Search */}
+        {/* Search Input */}
         {isOpen && (
           <div className="relative flex-1 max-w-[200px]">
             <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -285,7 +273,7 @@ const Sidebar = ({
           </div>
         )}
 
-        {/* Plus */}
+        {/* Add Chat Button */}
         <button
           className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-80 transition duration-200"
           onClick={() => setModalOpen(true)}
@@ -301,7 +289,6 @@ const Sidebar = ({
           >
             <FaBell className="text-xl" />
           </button>
-          {/* Show unread count (if any) */}
           {unreadCount > 0 && (
             <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
               {unreadCount}
@@ -332,7 +319,7 @@ const Sidebar = ({
           )}
         </button>
 
-        {/* GIF Button */}
+        {/* OpenAI GIF Button */}
         <div className="relative">
           <button
             className="w-20 h-20 ml-[-10px] flex items-center justify-center overflow-hidden rounded-full bg-transparent"
@@ -350,7 +337,7 @@ const Sidebar = ({
       {/* Divider */}
       <div className="my-2 border-t border-[#333]"></div>
 
-      {/* Chat List */}
+      {/* Scrollable Chat List */}
       {isOpen && (
         <>
           <h2 className="text-lg font-semibold mb-3 text-center text-purple-300">
@@ -412,15 +399,9 @@ const Sidebar = ({
       {/* Divider */}
       <div className="my-3 border-t border-[#333]"></div>
 
-      {/* Bottom Section: User Profile + Logout */}
-      <div
-        className={`mt-auto flex ${
-          isOpen
-            ? "flex-row items-center justify-between"
-            : "flex-col items-center space-y-2"
-        }`}
-      >
-        {/* Profile Image & Name */}
+      {/* Fixed Bottom Section: User Profile & Logout */}
+      <div className="sticky bottom-0 flex items-center justify-between bg-black pt-2">
+        {/* User Profile */}
         <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => setShowProfileModal(true)}
@@ -442,7 +423,7 @@ const Sidebar = ({
           )}
         </div>
 
-        {/* Logout */}
+        {/* Logout Button */}
         <button
           onClick={handleLogout}
           className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-red-600 to-purple-600 hover:opacity-80 transition duration-200"
@@ -452,7 +433,7 @@ const Sidebar = ({
         </button>
       </div>
 
-      {/* Spinner Overlay: Shows until groups are loaded */}
+      {/* Loading Spinner Overlay */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-75 z-20">
           <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-purple-500"></div>
@@ -462,27 +443,22 @@ const Sidebar = ({
       {/* Profile Modal */}
       {showProfileModal && (
         <UserProfileModal
-          user={{
-            name: userName,
-            email: userEmail,
-            image: userProfileImage,
-          }}
+          user={{ name: userName, email: userEmail, image: userProfileImage }}
           onClose={() => setShowProfileModal(false)}
           onProfileUpdated={fetchUserProfile}
         />
       )}
 
-      {/* Toast Container */}
       <ToastContainer />
 
-      {/* Inline style to hide scrollbar */}
+      {/* Hide scrollbar via inline styles */}
       <style jsx>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
         .scrollbar-hide {
-          -ms-overflow-style: none; /* IE and Edge */
-          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
     </div>
@@ -491,12 +467,9 @@ const Sidebar = ({
 
 export default Sidebar;
 
-/**
- * UserProfileModal component
- * Displays user info (name, email, image) and allows editing.
- * Uses PUT /api/auth/users/:email to update user profile.
- * Shows a spinner on save for 1s before displaying a success toast.
- */
+//
+// UserProfileModal Component
+//
 const UserProfileModal = ({ user, onClose, onProfileUpdated }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedName, setUpdatedName] = useState(user.name || "");
@@ -511,7 +484,7 @@ const UserProfileModal = ({ user, onClose, onProfileUpdated }) => {
     }
   };
 
-  // Save changes: update only name and image
+  // Save profile updates
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -612,7 +585,6 @@ const UserProfileModal = ({ user, onClose, onProfileUpdated }) => {
           </label>
           <p className="text-gray-200">{user.email}</p>
         </div>
-        {/* Role update has been removed */}
         <div className="flex justify-end gap-4 mt-6">
           {isEditing ? (
             <>
