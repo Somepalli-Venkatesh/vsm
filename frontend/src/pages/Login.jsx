@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import loginImage from "../assets/vsmlog.png"; // Your logo image
+import loginImage from "../assets/vsmlog.png"; // Your logo/image
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -95,103 +95,118 @@ const Login = () => {
         Back to Home
       </button>
 
-      {/* Logo/Image */}
-      <div className="flex justify-center mb-6">
-        <img
-          src={loginImage}
-          alt="Login Logo"
-          className="w-24 h-24 object-contain"
-        />
-      </div>
-
-      {/* Login Form Container */}
-      <div className="max-w-md w-full mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold text-center mb-4">Login</h2>
-        {message && (
-          <div className="mb-4 text-center text-red-400 font-medium">
-            {message}
-          </div>
-        )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={handleChange}
-            required
-            className="w-full p-3 bg-gray-700 border border-gray-600 rounded focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+      {/* Responsive Container */}
+      <div className="flex flex-col md:flex-row items-center max-w-5xl mx-auto w-full">
+        {/* Left: Large Image for Desktop */}
+        <div className="hidden md:flex md:w-1/2 items-center justify-center p-6">
+          <img
+            src={loginImage}
+            alt="Login Illustration"
+            className="w-full h-auto object-contain"
           />
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={handleChange}
-              required
-              className="w-full p-3 bg-gray-700 border border-gray-600 rounded focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+        </div>
+
+        {/* Right: Login Form */}
+        <div className="w-full md:w-1/2">
+          {/* Mobile Logo */}
+          <div className="flex md:hidden justify-center mb-6">
+            <img
+              src={loginImage}
+              alt="Login Logo"
+              className="w-24 h-24 object-contain"
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-3 flex items-center text-gray-400"
-            >
-              {showPassword ? "🙈" : "👁️"}
-            </button>
           </div>
-          <div>
-            <label className="block mb-2 text-gray-400 font-medium">Role</label>
-            <div className="flex space-x-4">
-              <label className="flex items-center">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold text-center mb-4">Login</h2>
+            {message && (
+              <div className="mb-4 text-center text-red-400 font-medium">
+                {message}
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={handleChange}
+                required
+                className="w-full p-3 bg-gray-700 border border-gray-600 rounded focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
+              />
+              <div className="relative">
                 <input
-                  type="radio"
-                  name="role"
-                  value="student"
-                  checked={role === "student"}
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  value={password}
                   onChange={handleChange}
-                  className="form-radio text-blue-500"
+                  required
+                  className="w-full p-3 bg-gray-700 border border-gray-600 rounded focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
                 />
-                <span className="ml-2">Student</span>
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="role"
-                  value="admin"
-                  checked={role === "admin"}
-                  onChange={handleChange}
-                  className="form-radio text-blue-500"
-                />
-                <span className="ml-2">Admin</span>
-              </label>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-400"
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
+              <div>
+                <label className="block mb-2 text-gray-400 font-medium">
+                  Role
+                </label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="student"
+                      checked={role === "student"}
+                      onChange={handleChange}
+                      className="form-radio text-blue-500"
+                    />
+                    <span className="ml-2">Student</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="role"
+                      value="admin"
+                      checked={role === "admin"}
+                      onChange={handleChange}
+                      className="form-radio text-blue-500"
+                    />
+                    <span className="ml-2">Admin</span>
+                  </label>
+                </div>
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded font-semibold hover:shadow-lg transition-all duration-300"
+              >
+                {loading ? "Logging in..." : "Login"}
+              </button>
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowForgotModal(true)}
+                  className="text-blue-400 font-semibold hover:underline"
+                >
+                  Forgot Password?
+                </button>
+              </div>
+            </form>
+            <div className="mt-6 text-center text-gray-400">
+              Don't have an account?{" "}
+              <a
+                href="/signup"
+                className="text-blue-400 font-semibold hover:underline"
+              >
+                Sign up here
+              </a>
             </div>
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-3 rounded font-semibold hover:shadow-lg transition-all duration-300"
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => setShowForgotModal(true)}
-              className="text-blue-400 font-semibold hover:underline"
-            >
-              Forgot Password?
-            </button>
-          </div>
-        </form>
-        <div className="mt-6 text-center text-gray-400">
-          Don't have an account?{" "}
-          <a
-            href="/signup"
-            className="text-blue-400 font-semibold hover:underline"
-          >
-            Sign up here
-          </a>
         </div>
       </div>
 
