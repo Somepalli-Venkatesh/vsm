@@ -83,7 +83,7 @@ const VsmChat = ({ onBack }) => {
   };
 
   useEffect(() => {
-    socketRef.current = io("https://vsm-virtual-study-backend.vercel.app", {
+    socketRef.current = io("https://vsm-virtual-study-backend.onrender.com/", {
       transports: ["websocket"],
       upgrade: false,
     });
