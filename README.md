@@ -1,13 +1,13 @@
 <div align="center">
   <img src="./ScreenShots/one.png" alt="VSM Logo" width="1200" />
 
-# ⚡ Virtual Study Mugen (VSM)
+# 👨‍💻 Virtual Study Mugen (VSM💌)
 
 A collaborative study platform where students can chat with peers, form study groups, and engage in interactive learning sessions.
 The platform features a role-based system that distinguishes between admin and student users, ensuring a secure and organized environment for all participants.
 </div>
 
-## 🚀 Tech Stack
+## 🧑‍🔧 Tech Stack
 
 <table align="center">
   <tr>
@@ -99,7 +99,7 @@ FRONTEND_URL=http://localhost:3000
 npm start
 ```
 
-### Environment Variables Guide:
+### 🗝 Environment Variables Guide:
 - `MONGO_URI`: Your MongoDB Atlas connection string
 - `EMAIL_HOST`: SMTP server host (smtp.gmail.com for Gmail)
 - `EMAIL_PORT`: SMTP server port (587 for TLS)
@@ -109,14 +109,14 @@ npm start
 - `JWT_SECRET`: Custom secret key for JWT tokens
 - `FRONTEND_URL`: Frontend application URL
 
-### Important Security Notes:
+### 🔏 Important Security Notes:
 1. Never commit your .env file to version control
 2. Add .env to your .gitignore file
 3. Use strong, unique values for JWT_SECRET
 4. For Gmail, use App Password instead of account password
 5. Keep your API keys secure
 
-## 📸 Workflow Screenshots
+## 📸 Workflow ▶ Screenshots
 
 <table>
   <tr>
@@ -213,7 +213,7 @@ npm start
 
 ## 🌐 Live Demo
 
-<div align="center">
+<div align="left">
   <a href="https://vsm-virtual-study-front.vercel.app/" target="_blank">
     <img src="./ScreenShots/one.png" alt="Live Demo" width="200" />
   </a>
@@ -222,21 +222,26 @@ npm start
 
 ## 📫 Contact
 
-<div align="center">
-  <a href="https://www.instagram.com/venkatesh__somepalli?utm_source=qr&igsh=ZjUyam5jdGM5aTFm" target="_blank" style="margin: 0 10px;">
+
+<div align="left">
+  <a href="https://www.instagram.com/venkatesh__somepalli?utm_source=qr&igsh=ZjUyam5jdGM5aTFm" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="40" />
-  </a>
-  <a href="https://www.linkedin.com/in/venkatesh-somepalli-84663a23b/" target="_blank" style="margin: 0 10px;">
+  </a>&nbsp;&nbsp;
+  <a href="https://www.linkedin.com/in/venkatesh-somepalli-84663a23b/" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="40" />
-  </a>
-  <a href="https://github.com/Somepalli-Venkatesh" target="_blank" style="margin: 0 10px;">
+  </a>&nbsp;&nbsp;
+  <a href="https://github.com/Somepalli-Venkatesh" target="_blank">
     <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="40" />
-  </a>
-  <a href="mailto:somepallivenkatesh38@gmail.com" target="_blank" style="margin: 0 10px;">
+  </a>&nbsp;&nbsp;
+  <a href="mailto:somepallivenkatesh38@gmail.com" target="_blank">
     <img src="https://img.icons8.com/color/48/000000/new-post.png" alt="Email" width="40" />
   </a>
 </div>
 
+
 <div align="center">
-  <p>Made with 💜 by the Virtual Study Mugen Team</p>
+  <h1>Made with 💜 by the Virtual Study Mugen Team</h1>
 </div>
+
+
+
