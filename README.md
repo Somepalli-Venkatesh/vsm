@@ -16,37 +16,37 @@ A collaborative study platform where students can chat with peers, form study gr
 
 <table>
   <tr>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg" width="48" height="48" alt="Express" />
       <br>Express
     </td>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" width="48" height="48" alt="MongoDB" />
       <br>MongoDB
     </td>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" width="48" height="48" alt="Node.js" />
       <br>Node.js
     </td>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="48" height="48" alt="React" />
       <br>React
     </td>
   </tr>
   <tr>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://jwt.io/img/pic_logo.svg" width="48" height="48" alt="JWT" />
       <br>JWT
     </td>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://nodemailer.com/nm_logo_200x136.png" width="48" height="48" alt="Nodemailer" />
       <br>Nodemailer
     </td>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://socket.io/images/logo.svg" width="48" height="48" alt="Socket.io" />
       <br>Socket.io
     </td>
-    <td align="center" width="96">
+    <td align="center" width="120">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/openai/openai-original.svg" width="48" height="48" alt="OpenAI" />
       <br>OpenAI
     </td>
