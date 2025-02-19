@@ -1,61 +1,52 @@
-<div align="center" style="background-color: #0B0014; color: #C87CFF;">
+<div align="center">
+  <img src="./ScreenShots/one.png" alt="VSM Logo" width="1200" />
 
-# ⚡ Virtual Study Mugen (VSM)
-
-<p align="center">
-  <img src="YOUR_IMAGE_URL" alt="VSM Logo" width="200"/>
-</p>
-
-<p style="color: #E58CFF;">
-A collaborative study platform where students can chat with peers, form study groups, and engage in interactive learning sessions. The platform features a role-based system that distinguishes between admin and student users, ensuring a secure and organized environment for all participants.
-</p>
-
+# 👨‍💻 Virtual Study Mugen (VSM💌)
+ Virtual Study Mugen (VSM) is a collaborative study platform that empowers students to communicate effectively through real-time messaging and seamless file sharing. It enables users to exchange notes, documents, and study materials effortlessly, fostering an engaging learning environment where students can also form study groups. With a robust role-based system that clearly distinguishes between admin and student users, VSM ensures a secure, organized space for academic collaboration and resource sharing.
 </div>
 
-## 🚀 Tech Stack
+## 🧑‍🔧 Tech Stack
 
-<table>
+<table align="center">
   <tr>
-    <td align="center" width="120">
+    <td align="center" width="110">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg" width="48" height="48" alt="Express" />
-      <br>Express
+      <br><strong>Express</strong>
     </td>
-    <td align="center" width="120">
+    <td align="center" width="110">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" width="48" height="48" alt="MongoDB" />
-      <br>MongoDB
+      <br><strong>MongoDB</strong>
     </td>
-    <td align="center" width="120">
+    <td align="center" width="110">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" width="48" height="48" alt="Node.js" />
-      <br>Node.js
+      <br><strong>Node.js</strong>
     </td>
-    <td align="center" width="120">
+    <td align="center" width="110">
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="48" height="48" alt="React" />
-      <br>React
+      <br><strong>React</strong>
     </td>
   </tr>
   <tr>
-    <td align="center" width="120">
+    <td align="center" width="110">
       <img src="https://jwt.io/img/pic_logo.svg" width="48" height="48" alt="JWT" />
-      <br>JWT
+      <br><strong>JWT</strong>
     </td>
-    <td align="center" width="120">
+    <td align="center" width="110">
       <img src="https://nodemailer.com/nm_logo_200x136.png" width="48" height="48" alt="Nodemailer" />
-      <br>Nodemailer
+      <br><strong>Nodemailer</strong>
     </td>
-    <td align="center" width="120">
+    <td align="center" width="110">
       <img src="https://socket.io/images/logo.svg" width="48" height="48" alt="Socket.io" />
-      <br>Socket.io
+      <br><strong>Socket.io</strong>
     </td>
-    <td align="center" width="120">
-      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/openai/openai-original.svg" width="48" height="48" alt="OpenAI" />
-      <br>OpenAI
+    <td align="center" width="110">
+      <img src="https://www.svgrepo.com/show/306500/openai.svg" width="48" height="48" alt="OpenAI" />
+      <br><strong>OpenAI</strong>
     </td>
   </tr>
 </table>
 
 ## ✨ Features
-
-<div style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
 
 - ⚡ **RESTful API** — Well-structured endpoints for seamless integration
 - 🔐 **Role Based Login** — Secure login system with distinct roles for admin and student
@@ -63,119 +54,192 @@ A collaborative study platform where students can chat with peers, form study gr
 - 💬 **Real-time Chat** — Connect and collaborate instantly
 - 👥 **Group Creation** — Form study groups effortlessly
 - 🛠 **Admin Panel** — Manage users and content efficiently
+- 🎨 **Custom Themes** — Personalize your study environment with unique purple-inspired themes
+- 🤖 **AI Assistance** — Leverage OpenAI integrations for enhanced learning and support
 
-</div>
-
-## 🛠️ Setup & Installation
-
-<div style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
+## 🛠 Setup & Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Somepalli-Venkatesh/vsm.git
-   ```
+```bash
+git clone https://github.com/Somepalli-Venkatesh/vsm.git
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+2. **Install dependencies for the root**
+```bash
+npm install
+```
 
 3. **Start the frontend**
-   ```bash
-   cd vsm/frontend
-   npm install
-   npm run dev
-   ```
+```bash
+cd vsm/frontend
+npm install
+npm run dev
+```
 
-4. **Start the backend**
-   ```bash
-   cd vsm/backend
-   npm install
-   npm start
-   ```
+4. **Set up the backend**
+```bash
+cd vsm/backend
+npm install
 
-</div>
+# Create a .env file in the backend directory with the following content:
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/?retryWrites=true&w=majority
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your.email@gmail.com
+EMAIL_PASS=your_16_digit_app_password
+COHERE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+JWT_SECRET=your_custom_jwt_secret_key_here
+FRONTEND_URL=http://localhost:3000
+```
 
-## 📸 Workflow Screenshots
+5. **Start the backend**
+```bash
+npm start
+```
 
-<details>
-<summary style="color: #C87CFF;">Click to view workflow screenshots</summary>
+### 🗝 Environment Variables Guide:
+- `MONGO_URI`: Your MongoDB Atlas connection string
+- `EMAIL_HOST`: SMTP server host (smtp.gmail.com for Gmail)
+- `EMAIL_PORT`: SMTP server port (587 for TLS)
+- `EMAIL_USER`: Your Gmail address
+- `EMAIL_PASS`: Your Gmail App Password (16-digit)
+- `COHERE_API_KEY`: Your Cohere API key
+- `JWT_SECRET`: Custom secret key for JWT tokens
+- `FRONTEND_URL`: Frontend application URL
 
-<p align="center">
-  <img src="./frontend/src/assets/vsmHome.jpg" alt="Workflow 1" width="400"/>
-  <img src="./frontend/src/assets/vsmSignup1.jpg" alt="Workflow 2" width="400"/>
-</p>
+### 🔏 Important Security Notes:
+1. Never commit your .env file to version control
+2. Add .env to your .gitignore file
+3. Use strong, unique values for JWT_SECRET
+4. For Gmail, use App Password instead of account password
+5. Keep your API keys secure
 
-<p align="center">
-  <img src="./frontend/src/assets/vsmSignup.jpg" alt="Workflow 3" width="400"/>
-  <img src="./frontend/src/assets/vsmLogin.jpg" alt="Workflow 4" width="400"/>
-</p>
+## 📸 Workflow ▶
 
-<p align="center">
-  <img src="./screenshots/workflow5.png" alt="Workflow 5" width="400"/>
-  <img src="./screenshots/workflow6.png" alt="Workflow 6" width="400"/>
-</p>
-
-<p align="center">
-  <img src="./screenshots/workflow7.png" alt="Workflow 7" width="400"/>
-  <img src="./screenshots/workflow8.png" alt="Workflow 8" width="400"/>
-</p>
-
-<p align="center">
-  <img src="./screenshots/workflow9.png" alt="Workflow 9" width="400"/>
-  <img src="./screenshots/workflow10.png" alt="Workflow 10" width="400"/>
-</p>
-
-<p align="center">
-  <img src="./screenshots/workflow11.png" alt="Workflow 11" width="400"/>
-  <img src="./screenshots/workflow12.png" alt="Workflow 12" width="400"/>
-</p>
-
-<p align="center">
-  <img src="./screenshots/workflow13.png" alt="Workflow 13" width="400"/>
-  <img src="./screenshots/workflow14.png" alt="Workflow 14" width="400"/>
-</p>
-
-<p align="center">
-  <img src="./screenshots/workflow15.png" alt="Workflow 15" width="400"/>
-  <img src="./screenshots/workflow16.png" alt="Workflow 16" width="400"/>
-</p>
-
-<p align="center">
-  <img src="./screenshots/workflow17.png" alt="Workflow 17" width="400"/>
-  <img src="./screenshots/workflow18.png" alt="Workflow 18" width="400"/>
-</p>
-
-<p align="center">
-  <img src="./screenshots/workflow19.png" alt="Workflow 19" width="400"/>
-  <img src="./screenshots/workflow20.png" alt="Workflow 20" width="400"/>
-</p>
-
-</details>
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/one.png" alt="Landing Page" />
+      <p><strong>Landing Page</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/two.png" alt="Login Process" />
+      <p><strong>Login Process</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/three.png" alt="Registration Page" />
+      <p><strong>Registration Page</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/four.png" alt="Dashboard Overview" />
+      <p><strong>OTP Verification</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/five.png" alt="Real-time Chat Interface" />
+      <p><strong>User Dashboard</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/six.png" alt="Group Creation Page" />
+      <p><strong>Chat Section</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/seven.png" alt="Admin Panel - User Management" />
+      <p><strong>Group Details</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/eight.png" alt="Admin Panel - Content Management" />
+      <p><strong>Group Invitation</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/nine.png" alt="Custom Themes Settings" />
+      <p><strong>Deleting Group</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/ten.png" alt="AI Assistance Integration" />
+      <p><strong>Create Group</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/eleven.png" alt="Notification System" />
+      <p><strong>User Profile</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/twelve.png" alt="Profile Settings" />
+      <p><strong>Editing User Profile</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/thirteen.png" alt="Study Group Chat" />
+      <p><strong>Click on Robo Icon</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/fourteen.png" alt="Calendar and Events" />
+      <p><strong>Chat with Hina</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/fifteen.png" alt="Resource Sharing" />
+      <p><strong>Notification</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/sixteen.png" alt="Notifications Overview" />
+      <p><strong>Admin Dashboard-Users</strong></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/seventeen.png" alt="Help & Support" />
+      <p><strong>Admin Dashboard-Groups</strong></p>
+    </td>
+    <td width="50%" align="center">
+      <img src="./ScreenShots/eighteen.png" alt="Final Overview" />
+      <p><strong>Home</strong></p>
+    </td>
+  </tr>
+</table>
 
 ## 🌐 Live Demo
 
-<div align="center" style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
-  <a href="https://dummyurl.com" target="_blank">
-    <img src="./screenshots/demo.png" alt="Live Demo" width="200"/>
+<div align="left">
+  <a href="https://vsm-virtual-study-front.vercel.app/" target="_blank">
+    <img src="./ScreenShots/one.png" alt="Live Demo" width="200" />
   </a>
-  <p style="color: #C87CFF;">Click the image above to view the live demo</p>
+  <p><strong>Click the image above to view the live demo</strong></p>
 </div>
 
 ## 📫 Contact
 
-<div align="center" style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
-  <a href="https://instagram.com" target="_blank">
-    <img src="./screenshots/instagram_icon.png" alt="Instagram" width="40" style="margin: 0 10px"/>
-  </a>
-  <a href="https://linkedin.com" target="_blank">
-    <img src="./screenshots/linkedin_icon.png" alt="LinkedIn" width="40" style="margin: 0 10px"/>
-  </a>
-  <a href="https://github.com" target="_blank">
-    <img src="./screenshots/github_icon.png" alt="GitHub" width="40" style="margin: 0 10px"/>
+
+<div align="left">
+  <a href="https://www.instagram.com/venkatesh__somepalli?utm_source=qr&igsh=ZjUyam5jdGM5aTFm" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="40" />
+  </a>&nbsp;&nbsp;
+  <a href="https://www.linkedin.com/in/venkatesh-somepalli-84663a23b/" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="40" />
+  </a>&nbsp;&nbsp;
+  <a href="https://github.com/Somepalli-Venkatesh" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="40" />
+  </a>&nbsp;&nbsp;
+  <a href="mailto:somepallivenkatesh38@gmail.com" target="_blank">
+    <img src="https://img.icons8.com/color/48/000000/new-post.png" alt="Email" width="40" />
   </a>
 </div>
 
+
 <div align="center">
-  <p style="color: #C87CFF;">Made with 💜 by Virtual Study Mugen Team</p>
+  <h1>Made with 💜 by the Virtual Study Mugen Team</h1>
 </div>
+
+
+
