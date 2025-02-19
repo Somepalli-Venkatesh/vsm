@@ -1,6 +1,6 @@
 <div align="center" style="background-color: #0B0014; color:#530f6a; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
   <p align="center">
-    <img src="./Screenshots/one.png" alt="VSM Logo" width="1200" style="border: 4px solid #C87CFF; border-radius: 50%;" />
+    <img src="./ScreenShots/one.png" alt="VSM Logo" width="1200" style="border: 4px solid #C87CFF; border-radius: 50%;" />
   </p>
   <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 900;">
     ⚡ Virtual Study Mugen (VSM)
@@ -97,101 +97,97 @@ npm start</code></pre>
 ## 📸 Workflow Screenshots
 
 <div style="text-align: center; margin: 20px 0;">
-  <button onclick="toggleScreenshots()" style="background-color: #2e0035; color: #C87CFF; padding: 12px 24px; border: 2px solid #C87CFF; border-radius: 8px; cursor: pointer; font-size: 1.1em;">
-    View Workflow Screenshots
-  </button>
-</div>
+  <h2 style="color: #C87CFF; margin-bottom: 30px;">Workflow Screenshots</h2>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto;">
+    <!-- Row 1 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/one.png" alt="Workflow 1" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Landing Page</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/two.png" alt="Workflow 2" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Login Process</p>
+    </div>
 
-<div id="screenshots" style="display: none;">
-  <!-- Screenshot 1 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/one.png" alt="Workflow 1" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 1: Landing Page</p>
-  </div>
-  <!-- Screenshot 2 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/two.png" alt="Workflow 2" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 2: Login Process</p>
-  </div>
-  <!-- Screenshot 3 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/three.png" alt="Workflow 3" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 3: Registration Page</p>
-  </div>
-  <!-- Screenshot 4 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/four.png" alt="Workflow 4" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 4: Dashboard Overview</p>
-  </div>
-  <!-- Screenshot 5 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/five.png" alt="Workflow 5" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 5: Real-time Chat Interface</p>
-  </div>
-  <!-- Screenshot 6 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/six.png" alt="Workflow 6" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 6: Group Creation Page</p>
-  </div>
-  <!-- Screenshot 7 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/seven.png" alt="Workflow 7" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 7: Admin Panel - User Management</p>
-  </div>
-  <!-- Screenshot 8 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/eight.png" alt="Workflow 8" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 8: Admin Panel - Content Management</p>
-  </div>
-  <!-- Screenshot 9 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/nine.png" alt="Workflow 9" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 9: Custom Themes Settings</p>
-  </div>
-  <!-- Screenshot 10 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/ten.png" alt="Workflow 10" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 10: AI Assistance Integration</p>
-  </div>
-  <!-- Screenshot 11 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/eleven.png" alt="Workflow 11" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 11: Notification System</p>
-  </div>
-  <!-- Screenshot 12 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/twelve.png" alt="Workflow 12" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 12: Profile Settings</p>
-  </div>
-  <!-- Screenshot 13 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/thirteen.png" alt="Workflow 13" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 13: Study Group Chat</p>
-  </div>
-  <!-- Screenshot 14 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/fourteen.png" alt="Workflow 14" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 14: Calendar and Events</p>
-  </div>
-  <!-- Screenshot 15 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/fifteen.png" alt="Workflow 15" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 15: Resource Sharing</p>
-  </div>
-  <!-- Screenshot 16 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/sixteen.png" alt="Workflow 16" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 16: Notifications Overview</p>
-  </div>
-  <!-- Screenshot 17 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/seventeen.png" alt="Workflow 17" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 17: Help & Support</p>
-  </div>
-  <!-- Screenshot 18 -->
-  <div style="display: inline-block; margin: 10px; text-align: center;">
-    <img src="./Screenshots/eighteen.png" alt="Workflow 18" width="400" style="display: block; margin: 0 auto;" />
-    <p style="color: #C87CFF; margin-top: 5px;">Workflow 18: Final Overview</p>
+    <!-- Row 2 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/three.png" alt="Workflow 3" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Registration Page</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/four.png" alt="Workflow 4" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Dashboard Overview</p>
+    </div>
+
+    <!-- Row 3 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/five.png" alt="Workflow 5" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Real-time Chat Interface</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/six.png" alt="Workflow 6" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Group Creation Page</p>
+    </div>
+
+    <!-- Row 4 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/seven.png" alt="Workflow 7" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Admin Panel - User Management</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/eight.png" alt="Workflow 8" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Admin Panel - Content Management</p>
+    </div>
+
+    <!-- Row 5 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/nine.png" alt="Workflow 9" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Custom Themes Settings</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/ten.png" alt="Workflow 10" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">AI Assistance Integration</p>
+    </div>
+
+    <!-- Row 6 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/eleven.png" alt="Workflow 11" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Notification System</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/twelve.png" alt="Workflow 12" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Profile Settings</p>
+    </div>
+
+    <!-- Row 7 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/thirteen.png" alt="Workflow 13" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Study Group Chat</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/fourteen.png" alt="Workflow 14" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Calendar and Events</p>
+    </div>
+
+    <!-- Row 8 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/fifteen.png" alt="Workflow 15" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Resource Sharing</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/sixteen.png" alt="Workflow 16" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Notifications Overview</p>
+    </div>
+
+    <!-- Row 9 -->
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/seventeen.png" alt="Workflow 17" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Help & Support</p>
+    </div>
+    <div style="background: #1f0126; padding: 15px; border-radius: 10px;">
+      <img src="./ScreenShots/eighteen.png" alt="Workflow 18" style="width: 100%; border-radius: 8px;" />
+      <p style="color: #C87CFF; margin-top: 10px;">Final Overview</p>
+    </div>
   </div>
 </div>
 
@@ -220,7 +216,6 @@ npm start</code></pre>
     <img src="https://img.icons8.com/color/48/000000/new-post.png" alt="Email" width="40" />
   </a>
 </div>
-
 <div align="center" style="margin-bottom: 30px;">
-  <p style="color: #C87CFF; font-size: 1.1em;">Made with 💜 by the Virtual Study Mugen Team</p>
+  <p style="color: #C87CFF; font-size: 1.1em;">Made with 💜 by the Virtual Study Mugen Team</p>
 </div>
