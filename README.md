@@ -183,7 +183,7 @@ npm start
 ## 🌐 Live Demo
 
 <div align="center">
-  <a href="https://virtual-study-mugen.vercel.app/" target="_blank">
+  <a href="https://vsm-virtual-study-front.vercel.app/" target="_blank">
     <img src="./ScreenShots/one.png" alt="Live Demo" width="200" />
   </a>
   <p><strong>Click the image above to view the live demo</strong></p>
@@ -192,16 +192,16 @@ npm start
 ## 📫 Contact
 
 <div align="center">
-  <a href="https://instagram.com/SathwikUK" target="_blank" style="margin: 0 10px;">
+  <a href="https://instagram.com/Venkatesh_Somepalli" target="_blank" style="margin: 0 10px;">
     <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="40" />
   </a>
-  <a href="https://linkedin.com/sathwikuk" target="_blank" style="margin: 0 10px;">
+  <a href="https://www.linkedin.com/in/venkatesh-somepalli-84663a23b/" target="_blank" style="margin: 0 10px;">
     <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" width="40" />
   </a>
-  <a href="https://github.com/SathwikUK" target="_blank" style="margin: 0 10px;">
+  <a href="https://github.com/Somepalli-Venkatesh" target="_blank" style="margin: 0 10px;">
     <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" width="40" />
   </a>
-  <a href="mailto:sathwikuk@gmail.com" target="_blank" style="margin: 0 10px;">
+  <a href="mailto:somepallivenkatesh38@gmail.com" target="_blank" style="margin: 0 10px;">
     <img src="https://img.icons8.com/color/48/000000/new-post.png" alt="Email" width="40" />
   </a>
 </div>
