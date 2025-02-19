@@ -192,7 +192,7 @@ npm start
 ## 📫 Contact
 
 <div align="center">
-  <a href="https://instagram.com/Venkatesh_Somepalli" target="_blank" style="margin: 0 10px;">
+  <a href="https://www.instagram.com/venkatesh__somepalli?utm_source=qr&igsh=ZjUyam5jdGM5aTFm" target="_blank" style="margin: 0 10px;">
     <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="40" />
   </a>
   <a href="https://www.linkedin.com/in/venkatesh-somepalli-84663a23b/" target="_blank" style="margin: 0 10px;">
