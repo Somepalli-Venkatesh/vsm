@@ -1,23 +1,61 @@
-# Virtual Study Mugen (VSM)
+<div align="center" style="background-color: #0B0014; color: #C87CFF;">
+
+# ⚡ Virtual Study Mugen (VSM)
 
 <p align="center">
   <img src="YOUR_IMAGE_URL" alt="VSM Logo" width="200"/>
 </p>
 
-Virtual Study Mugen is a collaborative study platform where students can chat with peers, form study groups, and engage in interactive learning sessions. The platform features a role-based system that distinguishes between admin and student users, ensuring a secure and organized environment for all participants.
+<p style="color: #E58CFF;">
+A collaborative study platform where students can chat with peers, form study groups, and engage in interactive learning sessions. The platform features a role-based system that distinguishes between admin and student users, ensuring a secure and organized environment for all participants.
+</p>
+
+</div>
 
 ## 🚀 Tech Stack
 
-- **Express** - A fast, unopinionated, minimalist web framework for Node.js
-- **MongoDB** - A NoSQL database for flexible data storage
-- **Node.js** - JavaScript runtime built on Chrome's V8 engine
-- **React.js** - A JavaScript library for building user interfaces
-- **JWT** - JSON Web Tokens for secure authentication
-- **Nodemailer** - A module for sending emails from Node.js applications
-- **Socket.io** - A library for real-time, bidirectional event-based communication
-- **OpenAI Integration** - Provides AI-powered features and enhancements
+<table>
+  <tr>
+    <td align="center" width="96">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original.svg" width="48" height="48" alt="Express" />
+      <br>Express
+    </td>
+    <td align="center" width="96">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" width="48" height="48" alt="MongoDB" />
+      <br>MongoDB
+    </td>
+    <td align="center" width="96">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" width="48" height="48" alt="Node.js" />
+      <br>Node.js
+    </td>
+    <td align="center" width="96">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="48" height="48" alt="React" />
+      <br>React
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="96">
+      <img src="https://jwt.io/img/pic_logo.svg" width="48" height="48" alt="JWT" />
+      <br>JWT
+    </td>
+    <td align="center" width="96">
+      <img src="https://nodemailer.com/nm_logo_200x136.png" width="48" height="48" alt="Nodemailer" />
+      <br>Nodemailer
+    </td>
+    <td align="center" width="96">
+      <img src="https://socket.io/images/logo.svg" width="48" height="48" alt="Socket.io" />
+      <br>Socket.io
+    </td>
+    <td align="center" width="96">
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/openai/openai-original.svg" width="48" height="48" alt="OpenAI" />
+      <br>OpenAI
+    </td>
+  </tr>
+</table>
 
 ## ✨ Features
+
+<div style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
 
 - ⚡ **RESTful API** — Well-structured endpoints for seamless integration
 - 🔐 **Role Based Login** — Secure login system with distinct roles for admin and student
@@ -26,7 +64,11 @@ Virtual Study Mugen is a collaborative study platform where students can chat wi
 - 👥 **Group Creation** — Form study groups effortlessly
 - 🛠 **Admin Panel** — Manage users and content efficiently
 
+</div>
+
 ## 🛠️ Setup & Installation
+
+<div style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
 
 1. **Clone the repository**
    ```bash
@@ -52,66 +94,58 @@ Virtual Study Mugen is a collaborative study platform where students can chat wi
    npm start
    ```
 
+</div>
+
 ## 📸 Workflow Screenshots
 
 <details>
-<summary>Click to view workflow screenshots</summary>
+<summary style="color: #C87CFF;">Click to view workflow screenshots</summary>
 
-### Row 1
 <p align="center">
   <img src="./screenshots/workflow1.png" alt="Workflow 1" width="400"/>
   <img src="./screenshots/workflow2.png" alt="Workflow 2" width="400"/>
 </p>
 
-### Row 2
 <p align="center">
   <img src="./screenshots/workflow3.png" alt="Workflow 3" width="400"/>
   <img src="./screenshots/workflow4.png" alt="Workflow 4" width="400"/>
 </p>
 
-### Row 3
 <p align="center">
   <img src="./screenshots/workflow5.png" alt="Workflow 5" width="400"/>
   <img src="./screenshots/workflow6.png" alt="Workflow 6" width="400"/>
 </p>
 
-### Row 4
 <p align="center">
   <img src="./screenshots/workflow7.png" alt="Workflow 7" width="400"/>
   <img src="./screenshots/workflow8.png" alt="Workflow 8" width="400"/>
 </p>
 
-### Row 5
 <p align="center">
   <img src="./screenshots/workflow9.png" alt="Workflow 9" width="400"/>
   <img src="./screenshots/workflow10.png" alt="Workflow 10" width="400"/>
 </p>
 
-### Row 6
 <p align="center">
   <img src="./screenshots/workflow11.png" alt="Workflow 11" width="400"/>
   <img src="./screenshots/workflow12.png" alt="Workflow 12" width="400"/>
 </p>
 
-### Row 7
 <p align="center">
   <img src="./screenshots/workflow13.png" alt="Workflow 13" width="400"/>
   <img src="./screenshots/workflow14.png" alt="Workflow 14" width="400"/>
 </p>
 
-### Row 8
 <p align="center">
   <img src="./screenshots/workflow15.png" alt="Workflow 15" width="400"/>
   <img src="./screenshots/workflow16.png" alt="Workflow 16" width="400"/>
 </p>
 
-### Row 9
 <p align="center">
   <img src="./screenshots/workflow17.png" alt="Workflow 17" width="400"/>
   <img src="./screenshots/workflow18.png" alt="Workflow 18" width="400"/>
 </p>
 
-### Row 10
 <p align="center">
   <img src="./screenshots/workflow19.png" alt="Workflow 19" width="400"/>
   <img src="./screenshots/workflow20.png" alt="Workflow 20" width="400"/>
@@ -121,17 +155,16 @@ Virtual Study Mugen is a collaborative study platform where students can chat wi
 
 ## 🌐 Live Demo
 
-<p align="center">
+<div align="center" style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
   <a href="https://dummyurl.com" target="_blank">
     <img src="./screenshots/demo.png" alt="Live Demo" width="200"/>
   </a>
-</p>
-
-Click the image above to view the live demo.
+  <p style="color: #C87CFF;">Click the image above to view the live demo</p>
+</div>
 
 ## 📫 Contact
 
-<p align="center">
+<div align="center" style="background-color: #1f0126; padding: 20px; border-radius: 10px;">
   <a href="https://instagram.com" target="_blank">
     <img src="./screenshots/instagram_icon.png" alt="Instagram" width="40" style="margin: 0 10px"/>
   </a>
@@ -141,4 +174,8 @@ Click the image above to view the live demo.
   <a href="https://github.com" target="_blank">
     <img src="./screenshots/github_icon.png" alt="GitHub" width="40" style="margin: 0 10px"/>
   </a>
-</p>
+</div>
+
+<div align="center">
+  <p style="color: #C87CFF;">Made with 💜 by Virtual Study Mugen Team</p>
+</div>
