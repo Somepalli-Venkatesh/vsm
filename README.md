@@ -78,12 +78,43 @@ npm install
 npm run dev
 ```
 
-4. **Start the backend**
+4. **Set up the backend**
 ```bash
 cd vsm/backend
 npm install
+
+# Create a .env file in the backend directory with the following content:
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/?retryWrites=true&w=majority
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your.email@gmail.com
+EMAIL_PASS=your_16_digit_app_password
+COHERE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+JWT_SECRET=your_custom_jwt_secret_key_here
+FRONTEND_URL=http://localhost:3000
+```
+
+5. **Start the backend**
+```bash
 npm start
 ```
+
+### Environment Variables Guide:
+- `MONGO_URI`: Your MongoDB Atlas connection string
+- `EMAIL_HOST`: SMTP server host (smtp.gmail.com for Gmail)
+- `EMAIL_PORT`: SMTP server port (587 for TLS)
+- `EMAIL_USER`: Your Gmail address
+- `EMAIL_PASS`: Your Gmail App Password (16-digit)
+- `COHERE_API_KEY`: Your Cohere API key
+- `JWT_SECRET`: Custom secret key for JWT tokens
+- `FRONTEND_URL`: Frontend application URL
+
+### Important Security Notes:
+1. Never commit your .env file to version control
+2. Add .env to your .gitignore file
+3. Use strong, unique values for JWT_SECRET
+4. For Gmail, use App Password instead of account password
+5. Keep your API keys secure
 
 ## 📸 Workflow Screenshots
 
@@ -105,77 +136,77 @@ npm start
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/four.png" alt="Dashboard Overview" />
-      <p><strong>Dashboard Overview</strong></p>
+      <p><strong>OTP Verification</strong></p>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
       <img src="./ScreenShots/five.png" alt="Real-time Chat Interface" />
-      <p><strong>Real-time Chat Interface</strong></p>
+      <p><strong>User Dashboard</strong></p>
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/six.png" alt="Group Creation Page" />
-      <p><strong>Group Creation Page</strong></p>
+      <p><strong>Chat Section</strong></p>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
       <img src="./ScreenShots/seven.png" alt="Admin Panel - User Management" />
-      <p><strong>Admin Panel - User Management</strong></p>
+      <p><strong>Group Details</strong></p>
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/eight.png" alt="Admin Panel - Content Management" />
-      <p><strong>Admin Panel - Content Management</strong></p>
+      <p><strong>Group Invitation</strong></p>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
       <img src="./ScreenShots/nine.png" alt="Custom Themes Settings" />
-      <p><strong>Custom Themes Settings</strong></p>
+      <p><strong>Deleting Group</strong></p>
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/ten.png" alt="AI Assistance Integration" />
-      <p><strong>AI Assistance Integration</strong></p>
+      <p><strong>Create Group</strong></p>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
       <img src="./ScreenShots/eleven.png" alt="Notification System" />
-      <p><strong>Notification System</strong></p>
+      <p><strong>User Profile</strong></p>
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/twelve.png" alt="Profile Settings" />
-      <p><strong>Profile Settings</strong></p>
+      <p><strong>Editing User Profile</strong></p>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
       <img src="./ScreenShots/thirteen.png" alt="Study Group Chat" />
-      <p><strong>Study Group Chat</strong></p>
+      <p><strong>Click on Robo Icon</strong></p>
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/fourteen.png" alt="Calendar and Events" />
-      <p><strong>Calendar and Events</strong></p>
+      <p><strong>Chat with Hina</strong></p>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
       <img src="./ScreenShots/fifteen.png" alt="Resource Sharing" />
-      <p><strong>Resource Sharing</strong></p>
+      <p><strong>Notification</strong></p>
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/sixteen.png" alt="Notifications Overview" />
-      <p><strong>Notifications Overview</strong></p>
+      <p><strong>Admin Dashboard-Users</strong></p>
     </td>
   </tr>
   <tr>
     <td width="50%" align="center">
       <img src="./ScreenShots/seventeen.png" alt="Help & Support" />
-      <p><strong>Help & Support</strong></p>
+      <p><strong>Admin Dashboard-Groups</strong></p>
     </td>
     <td width="50%" align="center">
       <img src="./ScreenShots/eighteen.png" alt="Final Overview" />
-      <p><strong>Final Overview</strong></p>
+      <p><strong>Home</strong></p>
     </td>
   </tr>
 </table>
