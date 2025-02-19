@@ -76,7 +76,7 @@ Check out the live demo [here](https://dummyurl.com).
 
  -->
 
-    }
+    
 # Virtual Study Mugen (VSM)
 
 <p align="center">
