@@ -76,7 +76,6 @@ Check out the live demo [here](https://dummyurl.com).
 
  -->
 
-    }
 # Virtual Study Mugen (VSM)
 
 <p align="center">
@@ -139,26 +138,75 @@ Virtual Study Mugen is a collaborative study platform where students can chat wi
 <details>
 <summary>Click to view workflow screenshots</summary>
 
-1. ![Workflow Step 1](./screenshots/workflow1.png)
-2. ![Workflow Step 2](./screenshots/workflow2.png)
-3. ![Workflow Step 3](./screenshots/workflow3.png)
-4. ![Workflow Step 4](./screenshots/workflow4.png)
-5. ![Workflow Step 5](./screenshots/workflow5.png)
-6. ![Workflow Step 6](./screenshots/workflow6.png)
-7. ![Workflow Step 7](./screenshots/workflow7.png)
-8. ![Workflow Step 8](./screenshots/workflow8.png)
-9. ![Workflow Step 9](./screenshots/workflow9.png)
-10. ![Workflow Step 10](./screenshots/workflow10.png)
-11. ![Workflow Step 11](./screenshots/workflow11.png)
-12. ![Workflow Step 12](./screenshots/workflow12.png)
-13. ![Workflow Step 13](./screenshots/workflow13.png)
-14. ![Workflow Step 14](./screenshots/workflow14.png)
-15. ![Workflow Step 15](./screenshots/workflow15.png)
-16. ![Workflow Step 16](./screenshots/workflow16.png)
-17. ![Workflow Step 17](./screenshots/workflow17.png)
-18. ![Workflow Step 18](./screenshots/workflow18.png)
-19. ![Workflow Step 19](./screenshots/workflow19.png)
-20. ![Workflow Step 20](./screenshots/workflow20.png)
+### Row 1
+
+<p align="center">
+  <img src="./screenshots/workflow1.png" alt="Workflow 1" width="400"/>
+  <img src="./screenshots/workflow2.png" alt="Workflow 2" width="400"/>
+</p>
+
+### Row 2
+
+<p align="center">
+  <img src="./screenshots/workflow3.png" alt="Workflow 3" width="400"/>
+  <img src="./screenshots/workflow4.png" alt="Workflow 4" width="400"/>
+</p>
+
+### Row 3
+
+<p align="center">
+  <img src="./screenshots/workflow5.png" alt="Workflow 5" width="400"/>
+  <img src="./screenshots/workflow6.png" alt="Workflow 6" width="400"/>
+</p>
+
+### Row 4
+
+<p align="center">
+  <img src="./screenshots/workflow7.png" alt="Workflow 7" width="400"/>
+  <img src="./screenshots/workflow8.png" alt="Workflow 8" width="400"/>
+</p>
+
+### Row 5
+
+<p align="center">
+  <img src="./screenshots/workflow9.png" alt="Workflow 9" width="400"/>
+  <img src="./screenshots/workflow10.png" alt="Workflow 10" width="400"/>
+</p>
+
+### Row 6
+
+<p align="center">
+  <img src="./screenshots/workflow11.png" alt="Workflow 11" width="400"/>
+  <img src="./screenshots/workflow12.png" alt="Workflow 12" width="400"/>
+</p>
+
+### Row 7
+
+<p align="center">
+  <img src="./screenshots/workflow13.png" alt="Workflow 13" width="400"/>
+  <img src="./screenshots/workflow14.png" alt="Workflow 14" width="400"/>
+</p>
+
+### Row 8
+
+<p align="center">
+  <img src="./screenshots/workflow15.png" alt="Workflow 15" width="400"/>
+  <img src="./screenshots/workflow16.png" alt="Workflow 16" width="400"/>
+</p>
+
+### Row 9
+
+<p align="center">
+  <img src="./screenshots/workflow17.png" alt="Workflow 17" width="400"/>
+  <img src="./screenshots/workflow18.png" alt="Workflow 18" width="400"/>
+</p>
+
+### Row 10
+
+<p align="center">
+  <img src="./screenshots/workflow19.png" alt="Workflow 19" width="400"/>
+  <img src="./screenshots/workflow20.png" alt="Workflow 20" width="400"/>
+</p>
 
 </details>
 
