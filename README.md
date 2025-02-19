@@ -102,7 +102,7 @@ A collaborative study platform where students can chat with peers, form study gr
 <summary style="color: #C87CFF;">Click to view workflow screenshots</summary>
 
 <p align="center">
-  <img src="./screenshots/workflow1.png" alt="Workflow 1" width="400"/>
+  <img src="../assets/abvsm.png" alt="Workflow 1" width="400"/>
   <img src="./screenshots/workflow2.png" alt="Workflow 2" width="400"/>
 </p>
 
