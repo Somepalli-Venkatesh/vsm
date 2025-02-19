@@ -2,9 +2,7 @@
   <img src="./ScreenShots/one.png" alt="VSM Logo" width="1200" />
 
 # 👨‍💻 Virtual Study Mugen (VSM💌)
-
-A collaborative study platform where students can chat with peers, form study groups, and engage in interactive learning sessions.
-The platform features a role-based system that distinguishes between admin and student users, ensuring a secure and organized environment for all participants.
+ Virtual Study Mugen (VSM) is a collaborative study platform that empowers students to communicate effectively through real-time messaging and seamless file sharing. It enables users to exchange notes, documents, and study materials effortlessly, fostering an engaging learning environment where students can also form study groups. With a robust role-based system that clearly distinguishes between admin and student users, VSM ensures a secure, organized space for academic collaboration and resource sharing.
 </div>
 
 ## 🧑‍🔧 Tech Stack
@@ -116,7 +114,7 @@ npm start
 4. For Gmail, use App Password instead of account password
 5. Keep your API keys secure
 
-## 📸 Workflow ▶ Screenshots
+## 📸 Workflow ▶
 
 <table>
   <tr>
