@@ -238,7 +238,7 @@ npm start
 
 
 <div align="center">
-  <h1>Made with 💜 by the Virtual Study Mugen Team</h1>
+  <h1>Made with 💜 by the VSM(o2,k0,k4)</h1>
 </div>
 
 
